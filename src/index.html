@@ -9,13 +9,13 @@
     <!-- <header>
       dddd
     </header> -->
-    <nav class="top-nav" id="topNav">
-      <ul>
+    <nav>
+      <ul class="top-nav" id="topNav">
         <li id="recipes">Recipes</li>
         <li id="favorites">Favorites</li>
         <li id="recipesToCook">Recipes to Cook</li>
-        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-          <i class="fa fa-bars"></i>
+        <!-- <a href="javascript:void(0);" class="bars-icon" id="barsIcon">
+          <i class="fa fa-bars"></i> -->
         <input type="text" class="recipe-search-bar" id="recipeSearchBar" placeholder="Search Recipes...">
       </ul>
     </nav>
@@ -66,7 +66,7 @@
         </div>
         <!-- here is where the individual recipe 'cards' will live -->
         <div class="recipe-card">
-          <img class="recipe-img" src="https://spoonacular.com/recipeImages/595736-556x370.jpg">
+          <img class="recipe-card-img" id="recipeCardImg" src="https://spoonacular.com/recipeImages/595736-556x370.jpg">
           <p>Price</p>
           <p>Name</p>
           <button id="viewRecipe">View Recipe</button>
