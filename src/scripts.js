@@ -15,3 +15,7 @@ closeButton.addEventListener('click', () => {
 })
 //test this commit
 //test this commit
+
+//we need to return an array of recipes that contain the ingrediant taht the user inputed
+//filter through the recipes and return which contain that ingrediant
+//first we gotta match up the IDs of the recipe.ingredient.id === ingredients.id
