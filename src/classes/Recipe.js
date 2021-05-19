@@ -14,9 +14,8 @@ class Recipe {
   determineIngredNames() {
     let ingredientNames = [];
     this.ingredients.map((ingredient) => {
-      let idCheck = ingredient.id;
       ingredientsData.forEach((data) => {
-        if (idCheck === data.id) {
+        if (ingredient.id === data.id) {
           ingredientNames.push(data.name);
           this.ingredientCost += data.estimatedCostInCents * ingredient.quantity.amount;
         }
