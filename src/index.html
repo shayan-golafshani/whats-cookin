@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <title>Whats Cookin</title>
   </head>
@@ -8,11 +9,13 @@
     <!-- <header>
       dddd
     </header> -->
-    <nav>
+    <nav class="top-nav" id="topNav">
       <ul>
         <li id="recipes">Recipes</li>
         <li id="favorites">Favorites</li>
         <li id="recipesToCook">Recipes to Cook</li>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+          <i class="fa fa-bars"></i>
         <input type="text" class="recipe-search-bar" id="recipeSearchBar" placeholder="Search Recipes...">
       </ul>
     </nav>
