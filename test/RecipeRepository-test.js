@@ -42,7 +42,7 @@ describe('Recipe Repository', () => {
     expect(recipeRepo.filterByTags('salad')).to.deep.equal(recipeRepo1.recipes);
   });
 
-  it('Should have a method to filter a list of recipes based on it\'s name or ingredients', () => {
+  it('Should have a method to filter a list of recipes based on it\'s name', () => {
     const recipeRepo = new RecipeRepository(recipeData);
     expect(recipeRepo.filterByName('salad')).to.deep.equal(recipeRepo1.recipes);
   });
