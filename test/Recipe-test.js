@@ -65,7 +65,7 @@ describe('Recipe', () => {
   });
 
   it('Should get the cost of its ingredients', () => {
-    expect(recipe1.getIngredCost()).to.equal(433);
+    expect(recipe1.getIngredCost()).to.equal(4.33);
   });
 
   it('Should return its instructions', () => {
