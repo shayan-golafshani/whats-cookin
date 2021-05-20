@@ -52,7 +52,7 @@ const renderRecipeCards = () => {
   const recipes = recipeData.map((recipe) => {
     return new Recipe(recipe)
   })
-  
+
   recipes.forEach((recipe) => {
     recipeCard.innerHTML = `
     <div class="recipe-card">
@@ -68,6 +68,3 @@ const renderRecipeCards = () => {
   // const cookBook = new RecipeRepository(recipeData)
   // cookBook.recipes.forEach((recipe) => {
   //   renderCardArray.push(recipe)
-  // console.log(renderCardArray)
-  // })
-// renderRecipeCards()
