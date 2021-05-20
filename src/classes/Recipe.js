@@ -26,7 +26,8 @@ class Recipe {
 
   getIngredCost() {
     this.determineIngredNames();
-    return this.ingredientCost;
+    console.log(this.ingredientCost);
+    return (this.ingredientCost / 100).toFixed(2)
   }
 
   displayDirections() {
