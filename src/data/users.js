@@ -6479,3 +6479,6 @@ const usersData = [
       ]
     }
   ]
+exports.modules = {
+  usersData
+}
