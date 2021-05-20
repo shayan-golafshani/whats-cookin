@@ -26,8 +26,8 @@ class Recipe {
 
   getIngredCost() {
     this.determineIngredNames();
-    console.log(this.ingredientCost);
-    return (this.ingredientCost / 100).toFixed(2)
+    //make sure to parseToAFloat otherwise you'll get an error.
+    return parseFloat((this.ingredientCost / 100).toFixed(2))
   }
 
   displayDirections() {
