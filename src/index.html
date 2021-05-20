@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <title>Whats Cookin</title>
   </head>
@@ -9,10 +10,12 @@
       dddd
     </header> -->
     <nav>
-      <ul>
+      <ul class="top-nav" id="topNav">
         <li id="recipes">Recipes</li>
         <li id="favorites">Favorites</li>
         <li id="recipesToCook">Recipes to Cook</li>
+        <!-- <a href="javascript:void(0);" class="bars-icon" id="barsIcon">
+          <i class="fa fa-bars"></i> -->
         <input type="text" class="recipe-search-bar" id="recipeSearchBar" placeholder="Search Recipes...">
       </ul>
     </nav>
@@ -62,10 +65,10 @@
           </span>
         </div>
         <!-- here is where the individual recipe 'cards' will live -->
-        <div class="recipe-card">
-          <img class="recipe-img" src="https://spoonacular.com/recipeImages/595736-556x370.jpg">
-          <p>Price</p>
-          <p>Name</p>
+        <div class="recipe-card" id="recipeCard">
+          <img class="recipe-card-img" id="recipeCardImg" src="https://spoonacular.com/recipeImages/595736-556x370.jpg">
+          <p class="recipe-card-price" id="recipeCardPrice">Price</p>
+          <p class="recipe-card-name" id="recipeCardName">Name</p>
           <button id="viewRecipe">View Recipe</button>
         </div>
       </article>
