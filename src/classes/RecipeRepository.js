@@ -46,7 +46,7 @@ class RecipeRepository {
     });
   }
 
-  filterRecipeByIngredients(userIngredient) {  
+  filterRecipeByIngredients(userInput) {  
     //ingredients.forEach((ingredien))
 
     //we needd to return an array of the recipes 
@@ -63,24 +63,36 @@ class RecipeRepository {
     // });
 
     //test the booleans on line 70
-
+// refactor this with the foreach on ingredients first the 
     let recipesWithMatchIngreds = [];
+  //   ingredientsData.forEach(data => {
+  //     recipesWithMatchIngreds = this.recipes.filter(recipe => { 
+  //       recipe.ingredients.find(ingredient => {
+  //       return ingredient.id === data.id && data.name.includes(userInput)
+  //     })
+  //   })
+  // })
+  // }
+
+
     this.recipes.map((recipe) => {
       ingredientsData.forEach((data) => {
         recipe.ingredients.forEach((ingredient) => {
                 //console.log(ingredient);
                 //console.log(data);
-               if (ingredient.id === data.id && data.name.includes(userIngredient)) {
+               if (ingredient.id === data.id && data.name.includes(userInput)) {
             recipesWithMatchIngreds.push(recipe);
           }
         });
         
         //ingredientNames.push(data.name);
 
-      });
-    });
+      })
+    })
+
   }
 }
-
+    
+  
 
 export default RecipeRepository;
