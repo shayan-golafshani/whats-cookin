@@ -27,7 +27,36 @@ describe('User', () => {
     expect(User).to.be.a('function');
   });
 
-  it('Should be a ')
+  /*
+Allow a user to favorite or unfavorite recipes (add to / remove from the user’s favoriteRecipes)
+Decide to cook a recipe that week (add to my recipesToCook)
+Filter my favoriteRecipes by one or more tags.
+Filter my favoriteRecipes by its name or ingredients.
+  
+  */
+  it('Should allow a user to favorite recipes (add to the user’s favoriteRecipes array)', () => {
+
+  });
+
+  it('Should allow a user to unfavorite recipes (remove them from the user’s favoriteRecipes)', () => {
+      
+  });
+
+  it('Should add a recipe that week (add to my recipesToCook)', () => {
+      
+  });
+
+  it('Should blah', () => {
+
+  });
+
+  it('Should blah', () => {
+    
+  });
+
+  it('Should blah', () => {
+    
+  });
 
   
 
