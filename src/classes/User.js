@@ -12,8 +12,10 @@ class User {
   addFromFavorites(recipe) {
   //is this already in the users favorites  if so, ignore it
   //otherwise push it into the array.
+    
     if (!this.favoriteRecipes.includes(recipe)) {
       this.favoriteRecipes.push(recipe);
+      console.log('the favorite recipes', this.favoriteRecipes);
     } else {
       console.log('sorry bud, you already favorited that');
     }
