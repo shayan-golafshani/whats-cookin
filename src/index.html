@@ -43,8 +43,8 @@
           <label for="condiment"> Condiment</label><br>
         </aside>
       </article>
-      <article class="recipe-cards">
-        <div id="modalBox" class="modal-container">
+      <article class="recipe-cards" id="recipeCards">
+        <div id="modalBox" class="modal-container hidden">
           <span class="modal">
             <h1>RECIPE NAME</h1>
             <div class="modal-instructions" id="modalInstructions">
@@ -65,7 +65,7 @@
           </span>
         </div>
         <!-- here is where the individual recipe 'cards' will live -->
-        <div class="recipe-card" id="recipeCard">
+        <div class="recipe-card hidden" id="recipeCard">
           <img class="recipe-card-img" id="recipeCardImg" src="https://spoonacular.com/recipeImages/595736-556x370.jpg">
           <p class="recipe-card-price" id="recipeCardPrice">Price</p>
           <p class="recipe-card-name" id="recipeCardName">Name</p>
@@ -73,7 +73,6 @@
         </div>
       </article>
       <article class="favorite-page .hidden" id="favoritePage">
-
       </article>
       <article class="favorite-page .hidden" id="favoritePage">
       </article>
