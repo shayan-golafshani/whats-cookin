@@ -1,8 +1,5 @@
 import { expect } from 'chai';
-import Recipe from '../src/classes/Recipe';
 import RecipeRepository from '../src/classes/RecipeRepository';
-
-//const data = require('../src/data');
 
 const recipe = require (`../src/data/recipes`);
 const salad = require('../src/data/salads-data');
@@ -10,7 +7,6 @@ const saladData = salad.saladData;
 const recipeData = recipe.recipeData;
 const honey = require('../src/data/honey-data');
 const honeyData = honey.honeyData;
-//const Recipe = Recipe;
 
 describe('Recipe Repository', () => {
 
@@ -37,7 +33,6 @@ describe('Recipe Repository', () => {
   });
 
   it('Should have a method to filter a list of recipes based on tags', () => {
-    //const salads = []
     const recipeRepo = new RecipeRepository(recipeData);
     expect(recipeRepo.filterByTags('salad')).to.deep.equal(recipeRepo1.recipes);
   });
