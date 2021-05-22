@@ -23,8 +23,7 @@ class User extends RecipeRepository {
   }
 
   addToRecipesToCook(recipe) {
-    (!this.recipesToCook.includes(recipe)) ?
-      this.recipesToCook.push(recipe) :
+    (!this.recipesToCook.includes(recipe)) ? this.recipesToCook.push(recipe) :
       console.log('sorry bud, you already favorited that');
   }
 
@@ -35,21 +34,16 @@ class User extends RecipeRepository {
   }
 
   filterFavoriteRecipesByTags(mealTags) {
-    // let filterFavsByTag = new RecipeRepository(this.favoriteRecipes);
-    // return filterFavsByTag.filterByTags(mealTags);
     return this.favoriteRecipes.this.super.filterByTags(mealTags);
   }
 
   filterFavoriteRecipesByName(name) {
-    let filterFavsByName = new RecipeRepository(this.favoriteRecipes);
-    return filterFavsByName.filterByName(name);    
+    return this.favoriteRecipes.this.super.filterByName(name);
   }
 
   filterFavoriteRecipesByIngreds(ingreds) {
-    let filterFavsByIngreds = new RecipeRepository(this.favoriteRecipes);
-    return filterFavsByIngreds.filterRecipeByIngredients(ingreds);
+    return this.favoriteRecipes.this.super.filterRecipeByIngredients(ingreds)
   }
-
 }
 
 export default User;
