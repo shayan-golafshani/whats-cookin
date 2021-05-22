@@ -1,7 +1,8 @@
 import RecipeRepository from "./RecipeRepository";
 
-class User {
-  constructor(userDetails) {
+class User extends RecipeRepository {
+  constructor(userDetails, data) {
+    super(data);
     this.name = userDetails.name;
     this.id = userDetails.id;
     this.pantry = userDetails.pantry;
@@ -9,45 +10,34 @@ class User {
     this.recipesToCook = [];
   }
 
-  addFromFavorites(recipe) {
-  //is this already in the users favorites  if so, ignore it
-  //otherwise push it into the array.
-    
-    if (!this.favoriteRecipes.includes(recipe)) {
-      this.favoriteRecipes.push(recipe);
-      console.log('the favorite recipes', this.favoriteRecipes);
-    } else {
+  addFromFavorites(recipe) { 
+    (!this.favoriteRecipes.includes(recipe)) ? 
+      this.favoriteRecipes.push(recipe) :
       console.log('sorry bud, you already favorited that');
-    }
   }
 
   removeFromFavorites(recipe) {
-    if (this.favoriteRecipes.includes(recipe)) {
-      this.favoriteRecipes.splice(this.favoriteRecipes.indexOf(recipe), 1);
-    } else {
+    this.favoriteRecipes.includes(recipe) ?
+      this.favoriteRecipes.splice(this.favoriteRecipes.indexOf(recipe), 1) :
       console.log('sorry but that recipe ain\'t here no more');
-    }
   }
 
   addToRecipesToCook(recipe) {
-    if (!this.favoriteRecipes.includes(recipe)) {
-      this.favoriteRecipes.push(recipe);
-    } else {
+    (!this.recipesToCook.includes(recipe)) ?
+      this.recipesToCook.push(recipe) :
       console.log('sorry bud, you already favorited that');
-    }
   }
 
   removeFromRecipesToCook(recipe) {
-    if (this.favoriteRecipes.includes(recipe)) {
-      this.favoriteRecipes.splice(this.favoriteRecipes.indexOf(recipe), 1);
-    } else {
+    this.recipesToCook.includes(recipe) ?
+      this.recipesToCook.splice(this.recipesToCook.indexOf(recipe), 1) :
       console.log('sorry but that recipe ain\'t here no more');
-    }
   }
 
   filterFavoriteRecipesByTags(mealTags) {
-    let filterFavsByTag = new RecipeRepository(this.favoriteRecipes);
-    return filterFavsByTag.filterByTags(mealTags);
+    // let filterFavsByTag = new RecipeRepository(this.favoriteRecipes);
+    // return filterFavsByTag.filterByTags(mealTags);
+    return this.favoriteRecipes.this.super.filterByTags(mealTags);
   }
 
   filterFavoriteRecipesByName(name) {
