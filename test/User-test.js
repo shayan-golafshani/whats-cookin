@@ -49,16 +49,30 @@ Filter my favoriteRecipes by its name or ingredients.
     const favoriteRecipes = [honeyData[0]]
     expect(user1.favoriteRecipes).to.eql(favoriteRecipes);
 
-    const someRecipe = 
-    user1.removeFromFavorites(recipe)
+    const someRecipe = honeyData[0];
+    user1.removeFromFavorites(someRecipe);
+    expect(user1.favoriteRecipes).to.deep.equal([]);
+
+    user2.addFromFavorites(honeyData[1]);
+    user2.addFromFavorites(honeyData[2]);
+    user2.addFromFavorites(honeyData[3]);
+
+    user2.removeFromFavorites(honeyData[2]);
+
+    expect(user2.favoriteRecipes).to.deep.equal([honeyData[1], honeyData[3]]);
   });
 
   it('Should add a recipe that week (add to my recipesToCook)', () => {
-      
+    user1.addToRecipesToCook(honeyData[0]);
+    const favoriteRecipes = [honeyData[0]];
+    expect(user1.recipesToCook).to.eql(favoriteRecipes);
   });
 
-  it('Should blah', () => {
-
+  it('Should remove a recipe from my recipesToCook', () => {
+    user1.addToRecipesToCook(honeyData[0]);
+    user1.removeFromRecipesToCook(honeyData[0]);
+    //const favoriteRecipes = [honeyData[0]];
+    expect(user1.recipesToCook).to.eql([]);
   });
 
   it('Should blah', () => {
