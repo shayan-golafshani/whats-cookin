@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import RecipeRepository from '../src/classes/RecipeRepository';
+import saladPlusDip from '../src/data/salad-plus-dip-data';
 
 const recipe = require (`../src/data/recipes`);
 const salad = require('../src/data/salads-data');
@@ -32,9 +33,16 @@ describe('Recipe Repository', () => {
     expect(recipeRepo.recipes).to.equal('meh');
   });
 
-  it('Should have a method to filter a list of recipes based on tags', () => {
+  it('Should have a method to filter a list of recipes based on a tag', () => {
     const recipeRepo = new RecipeRepository(recipeData);
+    recipeRepo.filterByTags('salad', 'appetizers', 'etc');
     expect(recipeRepo.filterByTags('salad')).to.deep.equal(recipeRepo1.recipes);
+    expect(recipeRepo.filterByTags('SALAD')).to.deep.equal(recipeRepo1.recipes);
+  });
+
+  it.only('Should have a method to filter a list of recipes based on multiple tags', () => {
+    const recipeRepo = new RecipeRepository(recipeData);
+    expect(recipeRepo.filterByTags('salad', 'dip')).to.deep.equal(saladPlusDip);
   });
 
   it('Should have a method to filter a list of recipes based on it\'s name', () => {
