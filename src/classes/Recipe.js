@@ -1,5 +1,3 @@
-import { ingredientsData } from "../data/ingredients";
-
 class Recipe {
   constructor(recipeDetails) {
     this.id = recipeDetails.id;
@@ -11,22 +9,22 @@ class Recipe {
     this.ingredientCost = 0;
   }
     
-  determineIngredNames() {
+  determineIngredNames(ingredientsData) {
     let ingredientNames = [];
     this.ingredients.map((ingredient) => {
       ingredientsData.forEach((data) => {
         if (ingredient.id === data.id) {
           ingredientNames.push(data.name);
-          this.ingredientCost += data.estimatedCostInCents * ingredient.quantity.amount;
+          this.ingredientCost += 
+          data.estimatedCostInCents * ingredient.quantity.amount;
         }
       });
     });
     return ingredientNames;
   }
 
-  getIngredCost() {
-    this.determineIngredNames();
-    //make sure to parseToAFloat otherwise you'll get an error.
+  getIngredCost(ingredientsData) {
+    this.determineIngredNames(ingredientsData);
     return parseFloat((this.ingredientCost / 100).toFixed(2))
   }
 
