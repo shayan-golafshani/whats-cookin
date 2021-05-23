@@ -1,5 +1,3 @@
-import { ingredientsData } from "../data/ingredients";
-
 class RecipeRepository {
   constructor(data) {
     this.recipes = data;
@@ -16,16 +14,22 @@ class RecipeRepository {
       recipe => recipe.name.toLowerCase().includes(name.toLowerCase()))
   }
 
-  filterRecipeByIngredients(userInput) {  
+  filterRecipeByIngredients(input, data) {  
+    let userInput = input.toLowerCase();
     let matchingRecipes = [];
-    ingredientsData.forEach(data => {
-      matchingRecipes = this.recipes.filter(recipe => { 
-        recipe.ingredients.find(ingredient => {
-          return ingredient.id === data.id && data.name.includes(userInput)
+    data.forEach(datum => {
+      this.recipes.forEach(recipe => { 
+        recipe.ingredients.forEach(ingredient => {
+          if (datum.id === ingredient.id  && datum.name.includes(userInput)) {
+            matchingRecipes.push(recipe);
+          }
         });
       });
     });
+    return matchingRecipes;
   }
+
+
 }
     
 export default RecipeRepository;
