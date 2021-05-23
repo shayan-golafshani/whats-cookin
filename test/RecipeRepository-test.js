@@ -1,16 +1,13 @@
 import { expect } from 'chai';
-import Recipe from '../src/classes/Recipe';
 import RecipeRepository from '../src/classes/RecipeRepository';
-
-//const data = require('../src/data');
+import honeyDataIngreds from '../src/data/honey-data-ingreds';
+import saladPlusDip from '../src/data/salad-plus-dip-data';
+import honeyData from '../src/data/honey-data'
 
 const recipe = require (`../src/data/recipes`);
 const salad = require('../src/data/salads-data');
 const saladData = salad.saladData;
 const recipeData = recipe.recipeData;
-const honey = require('../src/data/honey-data');
-const honeyData = honey.honeyData;
-//const Recipe = Recipe;
 
 describe('Recipe Repository', () => {
 
@@ -36,20 +33,25 @@ describe('Recipe Repository', () => {
     expect(recipeRepo.recipes).to.equal('meh');
   });
 
-  it('Should have a method to filter a list of recipes based on tags', () => {
-    //const salads = []
+  it('Should have a method to filter a list of recipes based on a tag', () => {
     const recipeRepo = new RecipeRepository(recipeData);
     expect(recipeRepo.filterByTags('salad')).to.deep.equal(recipeRepo1.recipes);
+    expect(recipeRepo.filterByTags('SALAD')).to.deep.equal(recipeRepo1.recipes);
   });
 
-  it('Should have a method to filter a list of recipes based on it\'s name or ingredients', () => {
+  it('Should have a method to filter a list of recipes based on multiple tags', () => {
+    const recipeRepo = new RecipeRepository(recipeData);
+    expect(recipeRepo.filterByTags('salad', 'dip')).to.deep.equal(saladPlusDip);
+  });
+
+  it('Should have a method to filter a list of recipes based on it\'s name', () => {
     const recipeRepo = new RecipeRepository(recipeData);
     expect(recipeRepo.filterByName('salad')).to.deep.equal(recipeRepo1.recipes);
   });
 
   it('Should have a method to filter the recipes by ingredients', () => {
     const recipeRepo = new RecipeRepository(recipeData);
-    expect(recipeRepo.filterRecipeByIngredients('honey')).to.deep.equal(recipeRepo2.recipes);
+    expect(recipeRepo.filterRecipeByIngredients('honey', honeyDataIngreds)).to.deep.equal(recipeRepo2.recipes);
   });
 
 });

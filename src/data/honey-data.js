@@ -543,6 +543,5 @@ const honeyData = [
   }
 ]
 
-exports.module = {
-  honeyData
-}
+
+export default honeyData;

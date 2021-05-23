@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import Recipe from '../src/classes/Recipe';
+import ingredientsDataSmall from '../src/data/dummyData/dummyIngredients';
 
 describe('Recipe', () => {
 
@@ -61,11 +62,11 @@ describe('Recipe', () => {
   });
 
   it('Should determine the names of the ingredients needed', () => {
-    expect(recipe1.determineIngredNames()).to.deep.equal(["wheat flour", "bicarbonate of soda"]);
+    expect(recipe1.determineIngredNames(ingredientsDataSmall)).to.deep.equal(["wheat flour", "bicarbonate of soda"]);
   });
 
   it('Should get the cost of its ingredients', () => {
-    expect(recipe1.getIngredCost()).to.equal(433);
+    expect(recipe1.getIngredCost(ingredientsDataSmall)).to.equal(4.33);
   });
 
   it('Should return its instructions', () => {
