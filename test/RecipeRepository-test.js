@@ -35,7 +35,6 @@ describe('Recipe Repository', () => {
 
   it('Should have a method to filter a list of recipes based on a tag', () => {
     const recipeRepo = new RecipeRepository(recipeData);
-    recipeRepo.filterByTags('salad', 'appetizers', 'etc');
     expect(recipeRepo.filterByTags('salad')).to.deep.equal(recipeRepo1.recipes);
     expect(recipeRepo.filterByTags('SALAD')).to.deep.equal(recipeRepo1.recipes);
   });

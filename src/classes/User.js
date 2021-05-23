@@ -33,16 +33,18 @@ class User extends RecipeRepository {
       console.log('sorry but that recipe ain\'t here no more');
   }
 
-  filterFavoriteRecipesByTags(mealTags) {
-    return this.favoriteRecipes.this.super.filterByTags(mealTags);
+  filterFavoriteRecipesByTags(...mealTags) {
+    // this.favoriteRecipes.this.
+    //console.log(super.filterByTags(...mealTags))
+    return this.favoriteRecipes.super.filterByTags(...mealTags);
   }
 
   filterFavoriteRecipesByName(name) {
     return this.favoriteRecipes.this.super.filterByName(name);
   }
 
-  filterFavoriteRecipesByIngreds(ingreds) {
-    return this.favoriteRecipes.this.super.filterRecipeByIngredients(ingreds)
+  filterFavoriteRecipesByIngreds(ingreds, data) {
+    return this.favoriteRecipes.this.super.filterRecipeByIngredients(ingreds, data)
   }
 }
 

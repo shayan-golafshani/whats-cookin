@@ -1,28 +1,23 @@
 import { expect } from 'chai';
 import User from '../src/classes/User';
-import Recipe from '../src/classes/Recipe';
+//import Recipe from '../src/classes/Recipe';
 import honeyData from '../src/data/honey-data';
+import usersDataSmall from '../src/data/dummyData/dummyUsers'
 //import RecipeRepository from '../src/classes/RecipeRepository';
 
-//const data = require('../src/data');
 
-//const recipe = require (`../src/data/recipes`);
-// const salad = require('../src/data/salads-data');
-// const saladData = salad.saladData;
-//const recipeData = recipe.recipeData;
-//honeyData
-//const honey = require('../src/data/honey-data');
-//const honeyData = honey.honeyData;
-//const Recipe = Recipe;
-const users = require('../src/data/users')
-const userData = users.modules.usersData;
+const recipe = require (`../src/data/recipes`);
+const salad = require('../src/data/salads-data');
+const saladData = salad.saladData;
+const recipeData = recipe.recipeData;
+
 
 describe('User', () => {
   let user1, user2;
 
   beforeEach('Setup', () => {
-    user1 = new User (userData[0]);
-    user2 = new User (userData[1]);
+    user1 = new User (usersDataSmall[0], recipeData);
+    user2 = new User (usersDataSmall[1], recipeData);
   });
 
 
@@ -71,16 +66,26 @@ Filter my favoriteRecipes by its name or ingredients.
   it('Should remove a recipe from my recipesToCook', () => {
     user1.addToRecipesToCook(honeyData[0]);
     user1.removeFromRecipesToCook(honeyData[0]);
-    //const favoriteRecipes = [honeyData[0]];
     expect(user1.recipesToCook).to.eql([]);
   });
 
-  it('Should blah', () => {
-    
+  it('Should have a method to filter my fave recipes based on 1 or more tags', () => {
+    recipeData.forEach(recipe => {
+      user1.favoriteRecipes.push(recipe);
+      user2.favoriteRecipes.push(recipe);
+    })
+    expect(user1.filterFavoriteRecipesByTags('salad')).to.deep.equal(saladData);
+    expect(user2.filterFavoriteRecipesByTags('salad', 'dip')).to.deep.equal(saladPlusDip);
   });
 
-  it('Should blah', () => {
-    
+  it('Should have a method to filter a list of recipes based on it\'s name', () => {
+    //const recipeRepo = new RecipeRepository(recipeData);
+    expect(recipeRepo.filterByName('salad')).to.deep.equal(recipeRepo1.recipes);
+  });
+
+  it('Should have a method to filter the recipes by ingredients', () => {
+    //const recipeRepo = new RecipeRepository(recipeData);
+    expect(recipeRepo.filterRecipeByIngredients('honey', honeyDataIngreds)).to.deep.equal(recipeRepo2.recipes);
   });
 
   
