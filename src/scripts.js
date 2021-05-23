@@ -27,6 +27,10 @@ recipeCards.addEventListener('click', function(event) {
   eventDelegator(event)
 })
 
+
+// recipeCards.addEventListener('click', renderModalBox)
+
+
 // viewRecipe.addEventListener('click', function() {
 //   modalBox.classList.add('show')
 // })
@@ -60,8 +64,8 @@ function renderRecipeCards() {
 
 function renderModalBox(event) {
   if(event.target.id === "viewRecipe"){
+    modalBox.classList.toggle('hidden')
     console.log('click recipe button')
-    modalBox.classList.remove('hidden')
   }
 }
 
