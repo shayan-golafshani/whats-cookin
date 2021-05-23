@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import User from '../src/classes/User';
-//import Recipe from '../src/classes/Recipe';
 import honeyData from '../src/data/honey-data';
 import usersDataSmall from '../src/data/dummyData/dummyUsers'
-//import RecipeRepository from '../src/classes/RecipeRepository';
+import saladPlusDip from '../src/data/salad-plus-dip-data';
+import honeyDataIngreds from '../src/data/honey-data-ingreds';
 
 
 const recipe = require (`../src/data/recipes`);
@@ -20,18 +20,10 @@ describe('User', () => {
     user2 = new User (usersDataSmall[1], recipeData);
   });
 
-
   it('Should be a function', () => {
     expect(User).to.be.a('function');
   });
 
-  /*
-Allow a user to favorite or unfavorite recipes (add to / remove from the user’s favoriteRecipes)
-Decide to cook a recipe that week (add to my recipesToCook)
-Filter my favoriteRecipes by one or more tags.
-Filter my favoriteRecipes by its name or ingredients.
-  
-  */
   it('Should allow a user to favorite recipes (add to the user’s favoriteRecipes array)', () => {
     //console.log('this is honey_data', honeyData[0]);
     user1.addFromFavorites(honeyData[0]);
@@ -78,16 +70,14 @@ Filter my favoriteRecipes by its name or ingredients.
     expect(user2.filterFavoriteRecipesByTags('salad', 'dip')).to.deep.equal(saladPlusDip);
   });
 
-  it('Should have a method to filter a list of recipes based on it\'s name', () => {
-    //const recipeRepo = new RecipeRepository(recipeData);
-    expect(recipeRepo.filterByName('salad')).to.deep.equal(recipeRepo1.recipes);
+  it('Should have a method to filter fave recipes based on it\'s name', () => {
+    recipeData.forEach(recipe => user1.favoriteRecipes.push(recipe));
+    expect(user1.filterFavoriteRecipesByName('salad')).to.deep.equal(saladData);
   });
 
   it('Should have a method to filter the recipes by ingredients', () => {
-    //const recipeRepo = new RecipeRepository(recipeData);
-    expect(recipeRepo.filterRecipeByIngredients('honey', honeyDataIngreds)).to.deep.equal(recipeRepo2.recipes);
+    recipeData.forEach(recipe => user1.favoriteRecipes.push(recipe));
+    expect(user1.filterFavoriteRecipesByIngreds('honey', honeyDataIngreds)).to.deep.equal(honeyData);
   });
-
-  
 
 });

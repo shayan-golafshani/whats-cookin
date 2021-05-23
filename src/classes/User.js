@@ -34,17 +34,18 @@ class User extends RecipeRepository {
   }
 
   filterFavoriteRecipesByTags(...mealTags) {
-    // this.favoriteRecipes.this.
-    //console.log(super.filterByTags(...mealTags))
-    return this.favoriteRecipes.super.filterByTags(...mealTags);
+    let faveByTags = new RecipeRepository (this.favoriteRecipes);
+    return faveByTags.filterByTags(...mealTags);
   }
 
   filterFavoriteRecipesByName(name) {
-    return this.favoriteRecipes.this.super.filterByName(name);
+    let faveByName = new RecipeRepository (this.favoriteRecipes);
+    return faveByName.filterByName(name);
   }
 
   filterFavoriteRecipesByIngreds(ingreds, data) {
-    return this.favoriteRecipes.this.super.filterRecipeByIngredients(ingreds, data)
+    let faveByIngreds = new RecipeRepository (this.favoriteRecipes);
+    return faveByIngreds.filterRecipeByIngredients(ingreds, data);
   }
 }
 
