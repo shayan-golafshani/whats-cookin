@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 import RecipeRepository from '../src/classes/RecipeRepository';
+import honeyDataIngreds from '../src/data/honey-data-ingreds';
 import saladPlusDip from '../src/data/salad-plus-dip-data';
+import honeyData from '../src/data/honey-data'
 
 const recipe = require (`../src/data/recipes`);
 const salad = require('../src/data/salads-data');
 const saladData = salad.saladData;
 const recipeData = recipe.recipeData;
-const honey = require('../src/data/honey-data');
-const honeyData = honey.honeyData;
 
 describe('Recipe Repository', () => {
 
@@ -40,7 +40,7 @@ describe('Recipe Repository', () => {
     expect(recipeRepo.filterByTags('SALAD')).to.deep.equal(recipeRepo1.recipes);
   });
 
-  it.only('Should have a method to filter a list of recipes based on multiple tags', () => {
+  it('Should have a method to filter a list of recipes based on multiple tags', () => {
     const recipeRepo = new RecipeRepository(recipeData);
     expect(recipeRepo.filterByTags('salad', 'dip')).to.deep.equal(saladPlusDip);
   });
@@ -52,7 +52,7 @@ describe('Recipe Repository', () => {
 
   it('Should have a method to filter the recipes by ingredients', () => {
     const recipeRepo = new RecipeRepository(recipeData);
-    expect(recipeRepo.filterRecipeByIngredients('honey')).to.deep.equal(recipeRepo2.recipes);
+    expect(recipeRepo.filterRecipeByIngredients('honey', honeyDataIngreds)).to.deep.equal(recipeRepo2.recipes);
   });
 
 });
