@@ -15,27 +15,28 @@
       </ul>
     </nav>
     <main>
-      <article class="filter-article">
+      <article class="filter-article" id="filterArticle">
         <!-- filter box for tags -->
         <aside class="filter-aside" id="filterBox"> 
           <!-- I want checked boxes with the tags so you can select as many as you want? -->
           <h1>Tag Box</h1>
-          <input type="checkbox" id="sideDish" name="side-dish" value="sidedish">
+          <input class="checkbox-values" type="checkbox" id="sideDish" name="tagbox" value="sidedish">
           <label for="side-dish"> Side Dish</label><br>
-          <input type="checkbox" id="appetizer" name="appetizer" value="appetizer">
+          <input class="checkbox-values" type="checkbox" id="appetizer" name="tagbox" value="appetizer">
           <label for="appetizer"> Appetizer</label><br>
-          <input type="checkbox" id="lunch" name="lunch" value="lunch">
+          <input class="checkbox-values" type="checkbox" id="lunch" name="tagbox" value="lunch">
           <label for="lunch"> Lunch</label><br>
-          <input type="checkbox" id="dinner" name="dinner" value="dinner">
+          <input class="checkbox-values" type="checkbox" id="dinner" name="tagbox" value="dinner">
           <label for="dinner"> Dinner</label><br>
-          <input type="checkbox" id="sauce" name="sauce" value="sauce">
+          <input class="checkbox-values" type="checkbox" id="sauce" name="tagbox" value="sauce">
           <label for="sauce"> Sauce</label><br>
-          <input type="checkbox" id="breakfast" name="breakfast" value="breakfast">
+          <input class="checkbox-values" type="checkbox" id="breakfast" name="tagbox" value="breakfast">
           <label for="breakfast"> Breakfast</label><br>
-          <input type="checkbox" id="salad" name="salad" value="salad">
+          <input class="checkbox-values" type="checkbox" id="salad" name="tagbox" value="salad">
           <label for="salad"> Salad</label><br>
-          <input type="checkbox" id="condiment" name="condiment" value="condiment">
+          <input class="checkbox-values" type="checkbox" id="condiment" name="tagbox" value="condiment">
           <label for="condiment"> Condiment</label><br>
+          <button id="filterButton">CLICKME</button>
         </aside>
       </article>
       <article class="recipe-cards" id="recipeCards">
@@ -60,11 +61,11 @@
           </span>
         </div>
       </article>
-      <article class="favorite-page .hidden" id="favoritePage">
-        <h1>BIG PUR</h1>
-      </article>
-      <article class="favorite-page .hidden" id="favoritePage">
-      </article>
+      <!-- <article class="favorite-page .hidden" id="favoritePage"> -->
+        <!-- <h1>BIG PUR</h1>
+      </article> -->
+      <!-- <article class="favorite-page .hidden" id="favoritePage"> -->
+      <!-- </article> -->
     </main>
   </body>
 </html>

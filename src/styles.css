@@ -107,7 +107,7 @@ nav{
   padding-top: 1rem;
   position: sticky; 
   top: 0;
-  font-size: 1.5vw;
+  font-size: 2rem;
   z-index:10;
   background:inherit;
   overflow: hidden;
@@ -165,5 +165,6 @@ nav ul li.active {
 
 /* <---------- HIDDEN CLASS ----------> */
 .hidden {
-  display: none
+  /* display: none !important; */
+  visibility: hidden;
 }

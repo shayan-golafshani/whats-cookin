@@ -1,4 +1,4 @@
-// import RecipeRepository from '../src/classes/RecipeRepository';
+import RecipeRepository from '../src/classes/RecipeRepository';
 // import { ingredientsData } from "../data/ingredients";
 import Recipe from '../src/classes/Recipe';
 import './styles.css';
@@ -7,9 +7,9 @@ import './styles.css';
 const recipe = require (`../src/data/recipes`);
 
 // Query Selectors
-const viewRecipe = document.getElementById('viewRecipe')
+// const viewRecipe = document.getElementById('viewRecipe')
 const closeButton = document.getElementById('close')
-const modalBox = document.querySelector('.modal-container')
+
 // Recipe Card Selectors
 let recipeCardImg = document.getElementById('recipeCardImg')
 let recipeCardPrice = document.getElementById('recipeCardPrice')
@@ -52,7 +52,7 @@ function renderRecipeCards() {
   })
   recipes.forEach((recipe) => {
     recipeCards.innerHTML += `
-      <div class="recipe-card" ="recipeCard">
+      <div class="recipe-card" id="recipeCard">
         <img class="recipe-card-img" id="recipeCardImg" src="${recipe.image}">
         <p class="recipe-card-price" id="recipeCardPrice">$${recipe.getIngredCost()}</p>
         <p class="recipe-card-name" id="recipeCardName">${recipe.name}</p>
@@ -62,9 +62,13 @@ function renderRecipeCards() {
   })
 }
 
+//  = docu/ment.querySelector('.modal-container')
+//  const modalBox = document.getElementById("modalBox").hidden = true;
+// document.getElementById("awesome").hidden = false;
 function renderModalBox(event) {
   if(event.target.id === "viewRecipe"){
-    modalBox.classList.toggle('hidden')
+    modalBox.classList.remove('hidden')
+    console.log(modalBox);
     console.log('click recipe button')
   }
 }
@@ -74,4 +78,33 @@ function closeModalBox(event) {
     console.log('clicked close button modal');
     modalBox.classList.add('hidden')
   }
+}
+/* 
+takes input values and put in bracket notation to be searched through filter by tage method?
+*/
+
+// var checkedValue = document.querySelector('.checkbox-values:checked').value;
+let checkedValue = document.querySelectorAll('.checkbox-values')
+// checkedValue.addEventListener('click'
+let tagBox = document.getElementById('filterButton')
+
+tagBox.addEventListener('click', function(event) {
+  console.log('TAGBOX CLICKED');
+  evaluateCheckBoxes(event)
+})
+
+function evaluateCheckBoxes(event) {
+  event.preventDefault()
+  console.log(checkedValue) //<< ONLY LOG THAT LOGGED
+  let tags = [];
+  checkedValue.forEach(box => {
+    console.log('box: ', box)
+    console.log(box.checked)
+    console.log('<<<test');
+    if(box.checked){
+      tags.push(box.value)
+      console.log(tags)
+    }
+  })
+  // recipefilterByName(tags)
 }
