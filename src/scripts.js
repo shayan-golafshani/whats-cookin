@@ -94,6 +94,7 @@ tagBox.addEventListener('click', function(event) {
 })
 
 function evaluateCheckBoxes(event) {
+  let cookBook = new RecipeRepository()
   event.preventDefault()
   console.log(checkedValue) //<< ONLY LOG THAT LOGGED
   let tags = [];
@@ -106,5 +107,5 @@ function evaluateCheckBoxes(event) {
       console.log(tags)
     }
   })
-  // recipefilterByName(tags)
+  recipefilterByName(tags)
 }
