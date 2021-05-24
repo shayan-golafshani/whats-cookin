@@ -23,11 +23,5 @@ const apiRecipes = () => fetch(recipeUrl)
 
 
 const getAllData () => { Promise.all([apiUsers(), apiIngreds(), apiRecipes()]) }
-//GET ALL INGREDIENTS
-//http://localhost:3001/api/v1/ingredients
 
-//Get all recipes
-//http://localhost:3001/api/v1/recipes
-
-
-//console.log('I will be a fetch request!')
+export default { apiUsers, apiIngreds, apiRecipes, getAllData}
