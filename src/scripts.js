@@ -14,6 +14,10 @@ let checkedValue = document.querySelectorAll('.checkbox-values')
 let tagBox = document.getElementById('filterButton')
 const modalBox = document.getElementById('modalBox')
 const mainElement = document.getElementById('mainElement')
+const nameSearchBox = document.getElementById('nameSearchBar')
+const nameSearchButton = document.getElementById('nameSearchBtn')
+const ingredSearchBox = document.getElementById('ingredSearchBar')
+const ingredSearchButton = document.getElementById('ingredSearchBtn')
 // const recipeCardContainer = document.getElementById('recipeCards')
 //Global Variable
 let allData = []
@@ -138,6 +142,21 @@ function renderIngredients(event) {
   })
 }
 
+nameSearchButton.addEventListener('click', nameSearch);
+
+function nameSearch() {
+  let recipeRepo1 = new RecipeRepository (allData[2].recipeData);
+  renderRecipeCards(recipeRepo1.filterByName(nameSearchBox.value));
+}
+
+ingredSearchButton.addEventListener('click', ingredSearch);
+
+function ingredSearch() {
+  let recipeRepo1 = new RecipeRepository (allData[2].recipeData);
+  renderRecipeCards(recipeRepo1.filterRecipeByIngredients(ingredSearchBox.value, allData[1].ingredientsData));
+}
+
+
 function closeModalBox(event) {
   if (event.target.id === 'close') {
     modalBox.classList.add('hidden')
@@ -153,6 +172,6 @@ function evaluateCheckBoxes(event) {
       tags.push(box.value)
     }
   })
-  const filteredRecipes = cookbook.filterByTags(tags[0])
+  const filteredRecipes = cookbook.filterByTags(tags[0]);
   renderRecipeCards(filteredRecipes)
 }
