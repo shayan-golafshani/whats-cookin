@@ -1,70 +1,149 @@
-// import RecipeRepository from '../src/classes/RecipeRepository';
-// import { ingredientsData } from "../data/ingredients";
-import Recipe from '../src/classes/Recipe';
 import './styles.css';
-// import apiCalls from './apiCalls';
+import getAllData from "../src/apiCalls";
+import Recipe from "../src/classes/Recipe"
+import RecipeRepository from './classes/RecipeRepository';
+// import getAllData from apiCalls
 // import loader from 'sass-loader';
-const recipe = require (`../src/data/recipes`);
+// const recipe = require (`../src/data/recipes`);
 
 // Query Selectors
-const viewRecipe = document.getElementById('viewRecipe')
+// const viewRecipe = document.getElementById('viewRecipe')
 const closeButton = document.getElementById('close')
+let recipeCards = document.getElementById('recipeCards')
+let checkedValue = document.querySelectorAll('.checkbox-values')
+let tagBox = document.getElementById('filterButton')
 const modalBox = document.getElementById('modalBox')
-// Recipe Card Selectors
-let recipeCardImg = document.getElementById('recipeCardImg')
-let recipeCardPrice = document.getElementById('recipeCardPrice')
-let recipeCardName = document.getElementById('recipeCardName')
-let recipeCard = document.getElementById('recipeCard')
-// const topNav = document.getElementById('') // query selector for responsive nav bar
+const mainElement = document.getElementById('mainElement')
+// const recipeCardContainer = document.getElementById('recipeCards')
+//Global Variable
+let allData = []
 
 //Event Listeners
-viewRecipe.addEventListener('click', () => {
-  // modalBox.classList.add('show')
-  renderRecipeCards()
+window.addEventListener('load', function() {
+  getAllData()
+    .then(response => allData = response)
+    .then( () => {
+      console.log('allData: ', allData)
+      renderRecipeCards(allData[2].recipeData)
+    })
+    .catch( err => console.log(err))
 })
 
-closeButton.addEventListener('click', () => {
+mainElement.addEventListener('click', function(event) {
+  eventDelegator(event)
+})
+
+// viewRecipe.addEventListener('click', function() {	
+//   modalBox.classList.add('show')	
+// })
+
+tagBox.addEventListener('click', function(event) {
+  console.log('TAGBOX CLICKED');
+  evaluateCheckBoxes(event)
+})
+
+// viewRecipe.addEventListener('click', function() {
+//   modalBox.classList.add('show')
+// })
+
+closeButton.addEventListener('click', function() {
   modalBox.classList.remove('show')
 })
 
-// window.onload = renderRecipeCards()
+//Event Handlers
+function eventDelegator(event) {
+  renderModalBox(event)
+  closeModalBox(event)
+  renderInstructions(event)
+}
 
-// window.onload = () => {
-//   renderRecipeCards();
-// };
-// window.onload('load', renderRecipeCards)
-//we need to return an array of recipes that contain the ingrediant taht the user inputed
-//filter through the recipes and return which contain that ingrediant
-//first we gotta match up the IDs of the recipe.ingredient.id === ingredients.id
 
-/*
-- a user should be able to view a list of all recipes
-- function to publish all recipes to the main page
-- needs to iterate through recipe array of objects and add Image, total cost of Ingredients 
-and name to recipe card
-- 
-*/
 
-const renderRecipeCards = () => {
-  // const renderCardArray = [];COMPLETE PRICE METHOD AND STORE IN VARIABLE FOR LATER USE
-  const recipeData = recipe.recipeData;
-  // const = recipeData.forEach
-  const recipes = recipeData.map((recipe) => {
+function renderRecipeCards(grub) {
+  recipeCards.innerHTML = ""
+  const recipes = grub.map((recipe) => {
     return new Recipe(recipe)
   })
-
   recipes.forEach((recipe) => {
-    recipeCard.innerHTML = `
-    <div class="recipe-card">
-    <img class="recipe-card-img" id="recipeCardImg" src="${recipe.image}">
-    <p class="recipe-card-price" id="recipeCardPrice">$${recipe.getIngredCost()}</p>
-    <p class="recipe-card-name" id="recipeCardName">${recipe.name}</p>
-    <button id="viewRecipe">View Recipe</button>
-  </div>
-  `
+    recipeCards.innerHTML += `
+      <div class="recipe-card" id="${recipe.id}">
+        <img class="recipe-card-img" id="recipeCardImg" src="${recipe.image}">
+        <p class="recipe-card-price" id="recipeCardPrice">$${recipe.getIngredCost(allData[1].ingredientsData)}</p>
+        <p class="recipe-card-name" id="recipeCardName">${recipe.name}</p>
+        <button id="viewRecipe">View Recipe</button>
+      </div>
+    `
   })
+}
+
+function renderModalBox(event) {
+  if(event.target.id === "viewRecipe"){
+    // console.log('box: ', event.path[1].id)
+    modalBox.classList.toggle('hidden')
+    renderInstructions(event)
   }
-  // const data = ingredientsData
-  // const cookBook = new RecipeRepository(recipeData)
-  // cookBook.recipes.forEach((recipe) => {
-  //   renderCardArray.push(recipe)
+}
+
+
+function renderInstructions(event) {
+  const modalInstructions = document.getElementById('modalInstructions')
+  modalInstructions.innerHTML = ""
+  allData[2].recipeData.forEach(recipe => {
+    if(recipe.id == event.path[1].id){
+      recipe.instructions.forEach(instruction => {
+      modalInstructions.innerHTML += `
+        <li id="modalInstructions">
+        ${instruction.number + " " + instruction.instruction}
+        </li>
+      `
+      })
+    }
+  })
+  renderIngredients(event)
+}
+
+function renderIngredients(event) {
+  //new instance of recipe then pass in ingredientsdata << which is 
+  
+  const modalIngredients = document.getElementById('modalIngredients')
+  modalIngredients.innerHTML = ""
+  
+  //add amount and unit to the ingredients
+  allData[2].recipeData.forEach(recipe => {
+    if(recipe.id == event.path[1].id){
+      let recipe1 = new Recipe(recipe)
+      console.log('recipe1: ', recipe1);
+      let ingredName = recipe1.determineIngredNames(allData[1].ingredientsData)
+      let ingredAmount = ""
+      ingredName.forEach(name => {
+        ingredAmount += `Amount: ${recipe1.ingredients[name].quanity.amount}` 
+        + `Unit: ${recipe1.ingredients[name].quanity.unit}`
+      })
+      //how to add amount + unit 
+      modalIngredients.innerHTML += `
+        <li id="modalIngredients">
+        ${ingredAmount + ingredName}
+        </li>
+      `
+    }
+  })
+}
+
+function closeModalBox(event) {
+  if(event.target.id === 'close'){
+    modalBox.classList.add('hidden')
+  }
+}
+
+function evaluateCheckBoxes(event) {
+  event.preventDefault()
+  let tags = [];
+  let cookbook = new RecipeRepository(allData[2].recipeData)
+  checkedValue.forEach(box => {
+    if(box.checked){
+      tags.push(box.value)
+    }
+  })
+  const filteredRecipes = cookbook.filterByTags(tags[0])
+  renderRecipeCards(filteredRecipes)
+}

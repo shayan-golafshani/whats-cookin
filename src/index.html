@@ -6,77 +6,68 @@
     <title>Whats Cookin</title>
   </head>
   <body>
-    <!-- <header>
-      dddd
-    </header> -->
     <nav>
       <ul class="top-nav" id="topNav">
         <li id="recipes">Recipes</li>
         <li id="favorites">Favorites</li>
         <li id="recipesToCook">Recipes to Cook</li>
-        <!-- <a href="javascript:void(0);" class="bars-icon" id="barsIcon">
-          <i class="fa fa-bars"></i> -->
         <input type="text" class="recipe-search-bar" id="recipeSearchBar" placeholder="Search Recipes...">
       </ul>
     </nav>
-    <main>
-      <article class="filter-article">
+    <main id="mainElement">
+      <!-- HERO IMAGE -->
+      <article class="filter-article" id="filterArticle">
         <!-- filter box for tags -->
         <aside class="filter-aside" id="filterBox"> 
           <!-- I want checked boxes with the tags so you can select as many as you want? -->
           <h1>Tag Box</h1>
-          <input type="checkbox" id="sideDish" name="side-dish" value="sidedish">
+          <input class="checkbox-values" type="checkbox" id="sideDish" name="tagbox" value="side dish">
           <label for="side-dish"> Side Dish</label><br>
-          <input type="checkbox" id="appetizer" name="appetizer" value="appetizer">
+          <input class="checkbox-values" type="checkbox" id="appetizer" name="tagbox" value="appetizer">
           <label for="appetizer"> Appetizer</label><br>
-          <input type="checkbox" id="lunch" name="lunch" value="lunch">
+          <input class="checkbox-values" type="checkbox" id="lunch" name="tagbox" value="lunch">
           <label for="lunch"> Lunch</label><br>
-          <input type="checkbox" id="dinner" name="dinner" value="dinner">
+          <input class="checkbox-values" type="checkbox" id="dinner" name="tagbox" value="dinner">
           <label for="dinner"> Dinner</label><br>
-          <input type="checkbox" id="sauce" name="sauce" value="sauce">
+          <input class="checkbox-values" type="checkbox" id="sauce" name="tagbox" value="sauce">
           <label for="sauce"> Sauce</label><br>
-          <input type="checkbox" id="breakfast" name="breakfast" value="breakfast">
+          <input class="checkbox-values" type="checkbox" id="breakfast" name="tagbox" value="breakfast">
           <label for="breakfast"> Breakfast</label><br>
-          <input type="checkbox" id="salad" name="salad" value="salad">
+          <input class="checkbox-values" type="checkbox" id="salad" name="tagbox" value="salad">
           <label for="salad"> Salad</label><br>
-          <input type="checkbox" id="condiment" name="condiment" value="condiment">
+          <input class="checkbox-values" type="checkbox" id="condiment" name="tagbox" value="condiment">
           <label for="condiment"> Condiment</label><br>
+          <button id="filterButton">CLICK ME</button>
         </aside>
       </article>
-      <article class="recipe-cards">
-        <div id="modalBox" class="modal-container">
-          <span class="modal">
-            <h1>RECIPE NAME</h1>
-            <div class="modal-instructions" id="modalInstructions">
-              <ul class="modal-instructions-list">Instructions
-                <li>
-                  BAKE IN OVEN FOR 32 YEARS
+      <div id="modalBox" class="modal-container hidden">
+        <span class="modal">
+          <h1>RECIPE NAME</h1>
+          <div class="modal-instructions">
+            <ul class="modal-instructions-list">Instructions
+              <li id="modalInstructions">
+                <!-- instructions here -->
+              </li>
+            </ul>
+          </div>
+          <div class="modal-ingredients">
+            <ul class="modal-ingredients-list">Ingredients
+                <li class="modal-ingredients-list" id="modalIngredients"> 
+                  <!-- ingredients here -->
                 </li>
-              </ul>
-            </div>
-            <div class="modal-ingredients" id="modalIngredients">
-              <ul class="modal-ingredients-list">Ingredients
-                  <li class="modal-ingredients-list"> 
-                    9 CUPS OF SUGAR
-                  </li>
-              </ul>
-            </div>
-            <button class="close" id="close">Close</button>
-          </span>
-        </div>
-        <!-- here is where the individual recipe 'cards' will live -->
-        <div class="recipe-card" id="recipeCard">
-          <img class="recipe-card-img" id="recipeCardImg" src="https://spoonacular.com/recipeImages/595736-556x370.jpg">
-          <p class="recipe-card-price" id="recipeCardPrice">Price</p>
-          <p class="recipe-card-name" id="recipeCardName">Name</p>
-          <button id="viewRecipe">View Recipe</button>
-        </div>
+            </ul>
+          </div>
+          <button class="close" id="close">Close</button>
+        </span>
+      </div>
+      <article class="recipe-cards" id="recipeCards">
+        <!-- RECIPE CARDS LIVE HERE AFTER PRINTED VIA DOM -->
       </article>
-      <article class="favorite-page .hidden" id="favoritePage">
-
-      </article>
-      <article class="favorite-page .hidden" id="favoritePage">
-      </article>
+      <!-- <article class="favorite-page .hidden" id="favoritePage"> -->
+        <!-- <h1>BIG PUR</h1>
+      </article> -->
+      <!-- <article class="favorite-page .hidden" id="favoritePage"> -->
+      <!-- </article> -->
     </main>
   </body>
 </html>

@@ -1,6 +1,6 @@
-* {
+/* * {
   border: 1px red solid
-}
+} */
 
 /* <---------- BODY ----------> */
 body {
@@ -25,9 +25,15 @@ main {
   margin-left: 10rem;
 }
 
-img {
-  height: 250px;
-  width: 250px;
+.recipe-card {
+  width: 16rem;
+  height: 26rem;
+  margin: .4rem;
+}
+
+.recipe-card-img {
+  height: 15rem;
+  width: 16rem;
 }
 
 /* <---------- MODAL ----------> */
@@ -41,15 +47,14 @@ img {
   left: 0;
   height: 100vh;
   width: 100vw;
-  opacity: 0;
-  pointer-events: none;
+  /* pointer-events: none; */
   transition: 0.3s ease;
 }
 
-.modal-container.show {
+/* .modal-container.show {
   pointer-events: auto;
   opacity: 1;
-}
+} */
 
 .modal {
   background-color: #fff;
@@ -83,6 +88,7 @@ img {
 .filter-article {
   flex-direction: column;
   margin-top: 2rem;
+  margin-left: 1rem;
   height: 13.8rem;
   width: 9rem;
   position: fixed;
@@ -94,13 +100,14 @@ nav{
   width: 100%;
   flex-wrap: wrap;
   height: 2rem;
-  background: rbga(0,0,0,.8);
-  border-top: 1px solid rgba (255,255,255,.2);
-  border-bottom: 1px solid rgba (255,255,255,.2);
+  /* background: rbga(0,0,0,.8); */
+  /* border-top: 1px solid rgba (255,255,255,.2); */
+  /* border-bottom: 1px solid rgba (255,255,255,.2); */
+  opacity: .9;
   padding-top: 1rem;
   position: sticky; 
   top: 0;
-  font-size: 1.5vw;
+  font-size: 2rem;
   z-index:10;
   background:inherit;
   overflow: hidden;
@@ -158,5 +165,6 @@ nav ul li.active {
 
 /* <---------- HIDDEN CLASS ----------> */
 .hidden {
-  display: none
+  /* display: none !important; */
+  display: none;
 }
