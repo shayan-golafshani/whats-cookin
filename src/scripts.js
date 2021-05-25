@@ -83,35 +83,52 @@ function renderModalBox(event) {
     renderInstructions(event)
   }
 }
-/*
-find id of recipe card where the button lives.
-once ID is ofund. match ID to recipe data allData.recipeData[2].forEach(recipe => )
-within recipe data extract instructions from nested data
-then print Insctuctoins to <li> inside modal
-*/
-function renderInstructions(event) {
 
-  // console.log("event: ", event);
+
+function renderInstructions(event) {
   const modalInstructions = document.getElementById('modalInstructions')
   modalInstructions.innerHTML = ""
   allData[2].recipeData.forEach(recipe => {
-    // console.log('recipe.id: ', recipe.id);
-    // console.log('event.path[0].id: ', event.path[1].id);
     if(recipe.id == event.path[1].id){
-      console.log('if statment worked');
       recipe.instructions.forEach(instruction => {
-        // console.log('instructions: ', instruction);
-        // console.log('jsonparse: ', JSON.parse(instruction));
       modalInstructions.innerHTML += `
-      <li id="modalInstructions">
-      ${instruction.instruction}
-      
-      </li>
-    `
+        <li id="modalInstructions">
+        ${instruction.number + " " + instruction.instruction}
+        </li>
+      `
       })
     }
   })
+  renderIngredients(event)
 }
+
+function renderIngredients(event) {
+  //new instance of recipe then pass in ingredientsdata << which is 
+  
+  const modalIngredients = document.getElementById('modalIngredients')
+  modalIngredients.innerHTML = ""
+  
+  //add amount and unit to the ingredients
+  allData[2].recipeData.forEach(recipe => {
+    if(recipe.id == event.path[1].id){
+      let recipe1 = new Recipe(recipe)
+      console.log('recipe1: ', recipe1);
+      let ingredName = recipe1.determineIngredNames(allData[1].ingredientsData)
+      let ingredAmount = ""
+      ingredName.forEach(name => {
+        ingredAmount += `Amount: ${recipe1.ingredients[name].quanity.amount}` 
+        + `Unit: ${recipe1.ingredients[name].quanity.unit}`
+      })
+      //how to add amount + unit 
+      modalIngredients.innerHTML += `
+        <li id="modalIngredients">
+        ${ingredAmount + ingredName}
+        </li>
+      `
+    }
+  })
+}
+
 function closeModalBox(event) {
   if(event.target.id === 'close'){
     modalBox.classList.add('hidden')
