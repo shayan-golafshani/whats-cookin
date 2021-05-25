@@ -90,8 +90,10 @@ within recipe data extract instructions from nested data
 then print Insctuctoins to <li> inside modal
 */
 function renderInstructions(event) {
+
   // console.log("event: ", event);
   const modalInstructions = document.getElementById('modalInstructions')
+  modalInstructions.innerHTML = ""
   allData[2].recipeData.forEach(recipe => {
     // console.log('recipe.id: ', recipe.id);
     // console.log('event.path[0].id: ', event.path[1].id);
