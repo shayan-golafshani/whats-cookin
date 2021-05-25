@@ -54,7 +54,10 @@ closeButton.addEventListener('click', function() {
 function eventDelegator(event) {
   renderModalBox(event)
   closeModalBox(event)
+  renderInstructions(event)
 }
+
+
 
 function renderRecipeCards(grub) {
   recipeCards.innerHTML = ""
@@ -63,7 +66,7 @@ function renderRecipeCards(grub) {
   })
   recipes.forEach((recipe) => {
     recipeCards.innerHTML += `
-      <div class="recipe-card" id="recipeCard">
+      <div class="recipe-card" id="${recipe.id}">
         <img class="recipe-card-img" id="recipeCardImg" src="${recipe.image}">
         <p class="recipe-card-price" id="recipeCardPrice">$${recipe.getIngredCost(allData[1].ingredientsData)}</p>
         <p class="recipe-card-name" id="recipeCardName">${recipe.name}</p>
@@ -75,16 +78,41 @@ function renderRecipeCards(grub) {
 
 function renderModalBox(event) {
   if(event.target.id === "viewRecipe"){
+    // console.log('box: ', event.path[1].id)
     modalBox.classList.toggle('hidden')
-    console.log("clicked modal box button");
-    console.log(modalBox)
+    renderInstructions(event)
   }
 }
-
+/*
+find id of recipe card where the button lives.
+once ID is ofund. match ID to recipe data allData.recipeData[2].forEach(recipe => )
+within recipe data extract instructions from nested data
+then print Insctuctoins to <li> inside modal
+*/
+function renderInstructions(event) {
+  // console.log("event: ", event);
+  const modalInstructions = document.getElementById('modalInstructions')
+  allData[2].recipeData.forEach(recipe => {
+    // console.log('recipe.id: ', recipe.id);
+    // console.log('event.path[0].id: ', event.path[1].id);
+    if(recipe.id == event.path[1].id){
+      console.log('if statment worked');
+      recipe.instructions.forEach(instruction => {
+        // console.log('instructions: ', instruction);
+        // console.log('jsonparse: ', JSON.parse(instruction));
+      modalInstructions.innerHTML += `
+      <li id="modalInstructions">
+      ${instruction.instruction}
+      
+      </li>
+    `
+      })
+    }
+  })
+}
 function closeModalBox(event) {
   if(event.target.id === 'close'){
     modalBox.classList.add('hidden')
-    console.log('clicked hdiden button');
   }
 }
 
