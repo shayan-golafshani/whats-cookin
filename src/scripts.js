@@ -1,20 +1,18 @@
 import './styles.css';
 import getAllData from "../src/apiCalls";
 import Recipe from "../src/classes/Recipe"
+import RecipeRepository from './classes/RecipeRepository';
 // import getAllData from apiCalls
 // import loader from 'sass-loader';
 // const recipe = require (`../src/data/recipes`);
 
 // Query Selectors
 const closeButton = document.getElementById('close')
-// let recipeCardImg = document.getElementById('recipeCardImg')
-// let recipeCardPrice = document.getElementById('recipeCardPrice')
-// let recipeCardName = document.getElementById('recipeCardName')
-// let recipeCard = document.getElementById('recipeCard')
 let recipeCards = document.getElementById('recipeCards')
 let checkedValue = document.querySelectorAll('.checkbox-values')
 let tagBox = document.getElementById('filterButton')
-
+const modalBox = document.getElementById('modalBox')
+// const recipeCardContainer = document.getElementById('recipeCards')
 //Global Variable
 let allData = []
 
@@ -23,8 +21,8 @@ window.addEventListener('load', function() {
   getAllData()
     .then(response => allData = response)
     .then( () => {
-      console.log(allData)
-      renderRecipeCards()
+      console.log('allData: ', allData)
+      renderRecipeCards(allData[2].recipeData)
     })
     .catch( err => console.log(err))
 })
@@ -38,9 +36,9 @@ tagBox.addEventListener('click', function(event) {
   evaluateCheckBoxes(event)
 })
 
-viewRecipe.addEventListener('click', function() {
-  modalBox.classList.add('show')
-})
+// viewRecipe.addEventListener('click', function() {
+//   modalBox.classList.add('show')
+// })
 
 closeButton.addEventListener('click', function() {
   modalBox.classList.remove('show')
@@ -52,9 +50,9 @@ function eventDelegator(event) {
   closeModalBox(event)
 }
 
-function renderRecipeCards() {
-  console.log('>>>>>: ', allData[2])
-  const recipes = allData[2].recipeData.map((recipe) => {
+function renderRecipeCards(grub) {
+  recipeCards.innerHTML = ""
+  const recipes = grub.map((recipe) => {
     return new Recipe(recipe)
   })
   recipes.forEach((recipe) => {
@@ -72,32 +70,25 @@ function renderRecipeCards() {
 function renderModalBox(event) {
   if(event.target.id === "viewRecipe"){
     modalBox.classList.remove('hidden')
-    console.log(modalBox);
-    console.log('click recipe button')
+    console.log("clicked box");
   }
 }
 
 function closeModalBox(event) {
   if(event.target.id === 'close'){
-    console.log('clicked close button modal');
     modalBox.classList.add('hidden')
   }
 }
 
 function evaluateCheckBoxes(event) {
-  let cookbook = getAllData()
-  console.log(cookbook)
   event.preventDefault()
-  console.log(checkedValue) //<< ONLY LOG THAT LOGGED
   let tags = [];
+  let cookbook = new RecipeRepository(allData[2].recipeData)
   checkedValue.forEach(box => {
-    console.log('box: ', box)
-    console.log(box.checked)
-    console.log('<<<test');
     if(box.checked){
       tags.push(box.value)
-      console.log(tags)
     }
   })
-  recipefilterByName(tags)
+  const filteredRecipes = cookbook.filterByTags(tags[0])
+  renderRecipeCards(filteredRecipes)
 }
