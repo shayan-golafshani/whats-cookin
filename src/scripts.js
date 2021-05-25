@@ -77,10 +77,11 @@ function renderRecipeCards(grub) {
 }
 
 function renderModalBox(event) {
-  if(event.target.id === "viewRecipe"){
+  if (event.target.id === "viewRecipe") {
     // console.log('box: ', event.path[1].id)
     modalBox.classList.toggle('hidden')
     renderInstructions(event)
+    renderIngredients(event)
   }
 }
 
@@ -89,9 +90,9 @@ function renderInstructions(event) {
   const modalInstructions = document.getElementById('modalInstructions')
   modalInstructions.innerHTML = ""
   allData[2].recipeData.forEach(recipe => {
-    if(recipe.id == event.path[1].id){
+    if (recipe.id == event.path[1].id) {
       recipe.instructions.forEach(instruction => {
-      modalInstructions.innerHTML += `
+        modalInstructions.innerHTML += `
         <li id="modalInstructions">
         ${instruction.number + " " + instruction.instruction}
         </li>
@@ -99,30 +100,38 @@ function renderInstructions(event) {
       })
     }
   })
-  renderIngredients(event)
 }
 
 function renderIngredients(event) {
-  //new instance of recipe then pass in ingredientsdata << which is 
-  
   const modalIngredients = document.getElementById('modalIngredients')
-  modalIngredients.innerHTML = ""
-  
-  //add amount and unit to the ingredients
+  modalIngredients.innerHTML = "";
+  let ingredAmount = '';
+
   allData[2].recipeData.forEach(recipe => {
-    if(recipe.id == event.path[1].id){
-      let recipe1 = new Recipe(recipe)
-      console.log('recipe1: ', recipe1);
-      let ingredName = recipe1.determineIngredNames(allData[1].ingredientsData)
-      let ingredAmount = ""
-      ingredName.forEach(name => {
-        ingredAmount += `Amount: ${recipe1.ingredients[name].quanity.amount}` 
-        + `Unit: ${recipe1.ingredients[name].quanity.unit}`
-      })
-      //how to add amount + unit 
+    if (recipe.id == event.path[1].id) {
+      let recipe1 = new Recipe(recipe);
+      let ingredNames = recipe1.determineIngredNames(allData[1].ingredientsData);
+
+      for (let i = 0; i < ingredNames.length; i++ ) {
+        ingredAmount = '';
+        for (let j = 0; j < recipe1.ingredients.length; j++) {
+          let innerForLoopString = '';
+          innerForLoopString += ` ${recipe1.ingredients[i].quantity.amount} `
+          innerForLoopString += ` ${recipe1.ingredients[i].quantity.unit} `  
+
+          ingredAmount = innerForLoopString;
+        }
+        ingredAmount += ` ${ingredNames[i]}.`
+
+        modalIngredients.innerHTML += `
+        <li id="modalIngredients">
+        ${ingredAmount}
+        </li>
+      `
+      }
       modalIngredients.innerHTML += `
         <li id="modalIngredients">
-        ${ingredAmount + ingredName}
+        ${ingredAmount}
         </li>
       `
     }
@@ -130,7 +139,7 @@ function renderIngredients(event) {
 }
 
 function closeModalBox(event) {
-  if(event.target.id === 'close'){
+  if (event.target.id === 'close') {
     modalBox.classList.add('hidden')
   }
 }
@@ -140,7 +149,7 @@ function evaluateCheckBoxes(event) {
   let tags = [];
   let cookbook = new RecipeRepository(allData[2].recipeData)
   checkedValue.forEach(box => {
-    if(box.checked){
+    if (box.checked) {
       tags.push(box.value)
     }
   })
