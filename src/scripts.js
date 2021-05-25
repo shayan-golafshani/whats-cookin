@@ -7,11 +7,13 @@ import RecipeRepository from './classes/RecipeRepository';
 // const recipe = require (`../src/data/recipes`);
 
 // Query Selectors
+// const viewRecipe = document.getElementById('viewRecipe')
 const closeButton = document.getElementById('close')
 let recipeCards = document.getElementById('recipeCards')
 let checkedValue = document.querySelectorAll('.checkbox-values')
 let tagBox = document.getElementById('filterButton')
 const modalBox = document.getElementById('modalBox')
+const mainElement = document.getElementById('mainElement')
 // const recipeCardContainer = document.getElementById('recipeCards')
 //Global Variable
 let allData = []
@@ -27,9 +29,13 @@ window.addEventListener('load', function() {
     .catch( err => console.log(err))
 })
 
-recipeCards.addEventListener('click', function(event) {
+mainElement.addEventListener('click', function(event) {
   eventDelegator(event)
 })
+
+// viewRecipe.addEventListener('click', function() {	
+//   modalBox.classList.add('show')	
+// })
 
 tagBox.addEventListener('click', function(event) {
   console.log('TAGBOX CLICKED');
@@ -69,14 +75,16 @@ function renderRecipeCards(grub) {
 
 function renderModalBox(event) {
   if(event.target.id === "viewRecipe"){
-    modalBox.classList.remove('hidden')
-    console.log("clicked box");
+    modalBox.classList.toggle('hidden')
+    console.log("clicked modal box button");
+    console.log(modalBox)
   }
 }
 
 function closeModalBox(event) {
   if(event.target.id === 'close'){
     modalBox.classList.add('hidden')
+    console.log('clicked hdiden button');
   }
 }
 

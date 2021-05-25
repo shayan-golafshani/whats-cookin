@@ -166,5 +166,5 @@ nav ul li.active {
 /* <---------- HIDDEN CLASS ----------> */
 .hidden {
   /* display: none !important; */
-  visibility: hidden;
+  display: none;
 }

@@ -14,7 +14,7 @@
         <input type="text" class="recipe-search-bar" id="recipeSearchBar" placeholder="Search Recipes...">
       </ul>
     </nav>
-    <main>
+    <main id="mainElement">
       <!-- HERO IMAGE -->
       <article class="filter-article" id="filterArticle">
         <!-- filter box for tags -->
@@ -40,27 +40,27 @@
           <button id="filterButton">CLICK ME</button>
         </aside>
       </article>
-      <article class="recipe-cards" id="recipeCards">
-        <div id="modalBox" class="modal-container hidden">
-          <span class="modal">
-            <h1>RECIPE NAME</h1>
-            <div class="modal-instructions" id="modalInstructions">
-              <ul class="modal-instructions-list">Instructions
-                <li>
-                  BAKE IN OVEN FOR 32 YEARS
+      <div id="modalBox" class="modal-container hidden">
+        <span class="modal">
+          <h1>RECIPE NAME</h1>
+          <div class="modal-instructions" id="modalInstructions">
+            <ul class="modal-instructions-list">Instructions
+              <li>
+                BAKE IN OVEN FOR 32 YEARS
+              </li>
+            </ul>
+          </div>
+          <div class="modal-ingredients" id="modalIngredients">
+            <ul class="modal-ingredients-list">Ingredients
+                <li class="modal-ingredients-list"> 
+                  9 CUPS OF SUGAR
                 </li>
-              </ul>
-            </div>
-            <div class="modal-ingredients" id="modalIngredients">
-              <ul class="modal-ingredients-list">Ingredients
-                  <li class="modal-ingredients-list"> 
-                    9 CUPS OF SUGAR
-                  </li>
-              </ul>
-            </div>
-            <button class="close" id="close">Close</button>
-          </span>
-        </div>
+            </ul>
+          </div>
+          <button class="close" id="close">Close</button>
+        </span>
+      </div>
+      <article class="recipe-cards" id="recipeCards">
       </article>
       <!-- <article class="favorite-page .hidden" id="favoritePage"> -->
         <!-- <h1>BIG PUR</h1>
