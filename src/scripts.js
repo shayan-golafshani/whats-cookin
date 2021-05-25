@@ -21,7 +21,7 @@ const ingredSearchBox = document.getElementById('ingredSearchBar')
 const ingredSearchButton = document.getElementById('ingredSearchBtn')
 const navbar = document.getElementById('navbar')
 const favoritePage = document.getElementById('favoritePage')
-
+const mainPage = document.getElementById('recipes')
 //Global Variable
 let allData = []
 
@@ -64,6 +64,7 @@ closeButton.addEventListener('click', function() {
 //Event Handlers
 function navbarDelegator(event){
   renderFavoritesPage(event)
+  renderRecipePage(event)
 }
 
 function eventDelegator(event) {
@@ -71,7 +72,8 @@ function eventDelegator(event) {
   closeModalBox(event)
   renderInstructions(event)
   favoriteRecipe(event)
-  renderFavoritesPage(event)
+  // renderFavoritesPage(event)
+  // renderRecipePage(event)
 }
 
 function renderRecipeCards(grub) {
@@ -225,7 +227,16 @@ function renderFavoritesPage(event) {
     // recipeCards.innerHTML = ""
     recipeCards.classList.add('hidden')
     favoritePage.classList.remove('hidden')
+    
+  }
+}
 
+function renderRecipePage(event) {
+  if(event.target.id === 'recipes'){
+    console.log('recipe nav button clicked');
+    favoritePage.classList.add('hidden')
+    recipeCards.classList.remove('hidden')
+    renderRecipeCards(allData[2].recipeData)
   }
 }
 
