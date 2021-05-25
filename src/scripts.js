@@ -2,6 +2,7 @@ import './styles.css';
 import getAllData from "../src/apiCalls";
 import Recipe from "../src/classes/Recipe"
 import RecipeRepository from './classes/RecipeRepository';
+import User from './classes/User'
 // import getAllData from apiCalls
 // import loader from 'sass-loader';
 // const recipe = require (`../src/data/recipes`);
@@ -9,16 +10,18 @@ import RecipeRepository from './classes/RecipeRepository';
 // Query Selectors
 // const viewRecipe = document.getElementById('viewRecipe')
 const closeButton = document.getElementById('close')
-let recipeCards = document.getElementById('recipeCards')
-let checkedValue = document.querySelectorAll('.checkbox-values')
-let tagBox = document.getElementById('filterButton')
+const recipeCards = document.getElementById('recipeCards')
+const checkedValue = document.querySelectorAll('.checkbox-values')
+const tagBox = document.getElementById('filterButton')
 const modalBox = document.getElementById('modalBox')
 const mainElement = document.getElementById('mainElement')
 const nameSearchBox = document.getElementById('nameSearchBar')
 const nameSearchButton = document.getElementById('nameSearchBtn')
 const ingredSearchBox = document.getElementById('ingredSearchBar')
 const ingredSearchButton = document.getElementById('ingredSearchBtn')
-// const recipeCardContainer = document.getElementById('recipeCards')
+const navbar = document.getElementById('navbar')
+const favoritePage = document.getElementById('favoritePage')
+
 //Global Variable
 let allData = []
 
@@ -28,10 +31,14 @@ window.addEventListener('load', function() {
     .then(response => allData = response)
     .then( () => {
       console.log('allData: ', allData)
+      // console.log('userdata: ', allData[0])
       renderRecipeCards(allData[2].recipeData)
     })
+    .then(createUser)
     .catch( err => console.log(err))
 })
+
+navbar.addEventListener('click', () => navbarDelegator(event))
 
 mainElement.addEventListener('click', function(event) {
   eventDelegator(event)
@@ -55,13 +62,17 @@ closeButton.addEventListener('click', function() {
 })
 
 //Event Handlers
+function navbarDelegator(event){
+  renderFavoritesPage(event)
+}
+
 function eventDelegator(event) {
   renderModalBox(event)
   closeModalBox(event)
   renderInstructions(event)
+  favoriteRecipe(event)
+  renderFavoritesPage(event)
 }
-
-
 
 function renderRecipeCards(grub) {
   recipeCards.innerHTML = ""
@@ -75,6 +86,7 @@ function renderRecipeCards(grub) {
         <p class="recipe-card-price" id="recipeCardPrice">$${recipe.getIngredCost(allData[1].ingredientsData)}</p>
         <p class="recipe-card-name" id="recipeCardName">${recipe.name}</p>
         <button id="viewRecipe">View Recipe</button>
+        <button id="favoriteButton">Favorite Recipe</button>
       </div>
     `
   })
@@ -88,7 +100,6 @@ function renderModalBox(event) {
     renderIngredients(event)
   }
 }
-
 
 function renderInstructions(event) {
   const modalInstructions = document.getElementById('modalInstructions')
@@ -156,7 +167,6 @@ function ingredSearch() {
   renderRecipeCards(recipeRepo1.filterRecipeByIngredients(ingredSearchBox.value, allData[1].ingredientsData));
 }
 
-
 function closeModalBox(event) {
   if (event.target.id === 'close') {
     modalBox.classList.add('hidden')
@@ -175,3 +185,50 @@ function evaluateCheckBoxes(event) {
   const filteredRecipes = cookbook.filterByTags(tags[0]);
   renderRecipeCards(filteredRecipes)
 }
+
+
+//need random user chosen on load. <<<<<<<
+// mathrandom to choose from inside the array of users
+//do i have to match recipe ID with recipe object? how to target/locate recipe object?<<<<<< 
+//find ID of where favorite button was clicked. <<<<<<<< 
+//take ID and match it up with allData[2] to extract recipe object
+//then pass recipe object into addFromFavorites(recipe) that will add recipe to favorited array
+
+function createUser() {
+  const user1 = new User(allData[0].usersData[0], allData[2].recipeData) 
+  return user1
+}
+
+function favoriteRecipe(event) {
+  const user1 = createUser()
+  const favoritedArray = []
+  if(event.target.id === 'favoriteButton'){
+    // console.log(event.path[1].id);
+    allData[2].recipeData.forEach(recipe => {
+      if(event.path[1].id == recipe.id){
+        console.log(recipe.id);
+        user1.addFromFavorites(recipe)
+        // console.log('line 201: ');
+        // console.log(favoritedArray)
+      }
+    })
+    // console.log(user1.favoriteRecipes);
+  }
+
+  return user1
+}
+
+function renderFavoritesPage(event) {
+  if(event.target.id === 'favorites'){
+    // console.log(event)
+    console.log('favorites button clicked');
+    // recipeCards.innerHTML = ""
+    recipeCards.classList.add('hidden')
+    favoritePage.classList.remove('hidden')
+
+  }
+}
+
+// function toggleHidden(element) {
+//   [element].classList.toggle('hidden')
+// }
