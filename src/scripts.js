@@ -155,8 +155,7 @@ function renderIngredients(event) {
   })
 }
 
-nameSearchButton.addEventListener('click', () => {
-  
+nameSearchButton.addEventListener('click', () => {s
   if(!favoritePage.classList.contains('hidden')){
     // renderRecipeCards(user1.filterFavoriteRecipesByIngreds(ingredSearchBox.value, allData[1].ingredientsData), favoriteArticle)
     renderRecipeCards(user1.filterFavoriteRecipesByName(nameSearchBox.value), favoriteArticle)
