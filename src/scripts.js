@@ -21,7 +21,8 @@ const ingredSearchBox = document.getElementById('ingredSearchBar')
 const ingredSearchButton = document.getElementById('ingredSearchBtn')
 const navbar = document.getElementById('navbar')
 const favoritePage = document.getElementById('favoritePage')
-const mainPage = document.getElementById('recipes') //<<<<<<<<<< not used yet either
+// const favoritePageClass = document.g
+// const mainPage = document.getElementById('recipes') //<<<<<<<<<< not used yet either
 const favoriteArticle = document.getElementById('favoriteArticle')
 // const recipesToCookPage = document.getElementById('recipesToCookPage')
 // const recipesToCook = document.getElementById('recipesToCook')
@@ -36,7 +37,7 @@ window.addEventListener('load', function() {
     .then( () => {
       console.log('allData: ', allData)
       user1 = new User(allData[0].usersData[0], allData[2].recipeData)
-      // console.log('userdata: ', allData[0])
+      console.log(this)
       renderRecipeCards(allData[2].recipeData, recipeCards)
     })
     // .then(createUser)
@@ -161,7 +162,17 @@ function nameSearch() {
   renderRecipeCards(recipeRepo1.filterByName(nameSearchBox.value), recipeCards);
 }
 
-ingredSearchButton.addEventListener('click', ingredSearch);
+ingredSearchButton.addEventListener('click', () => {
+  if(!favoritePage.classList.contains('hidden')){
+    renderRecipeCards(user1.filterFavoriteRecipesByIngreds(ingredSearchBox.value, allData[1].ingredientsData), favoriteArticle)
+  }
+  if(!recipeCards.classList.contains('hidden')){
+    ingredSearch()
+  }
+  // if(!recipesToCookArticle.classList.includes(hidden)){
+  //   user1.
+  // }
+});
 
 function ingredSearch() {
   let recipeRepo1 = new RecipeRepository (allData[2].recipeData);
@@ -251,3 +262,4 @@ function renderRecipePage(event) {
     renderRecipeCards(allData[2].recipeData, recipeCards)
   }
 }
+
