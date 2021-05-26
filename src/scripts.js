@@ -53,7 +53,6 @@ function eventDelegator(event) {
   favoriteRecipe(event)
   unfavoriteButton(event)
   addToCookbook(event)
-  console.log(event);
 }
 
 function renderRecipeCards(recipeData, htmlElement) {
@@ -91,6 +90,7 @@ function closeModalBox(event) {
 }
 
 function renderInstructions(event) {
+  if (event.target.id === "viewRecipe"){
   const modalInstructions = document.getElementById('modalInstructions')
   modalInstructions.innerHTML = ""
   allData[2].recipeData.forEach(recipe => {
@@ -101,9 +101,10 @@ function renderInstructions(event) {
         ${instruction.number + " " + instruction.instruction}
         </li>
       `
-      })
-    }
-  })
+        })
+      }
+    })
+  }
 }
 
 function renderIngredients(event) {
@@ -196,8 +197,8 @@ function unfavoriteButton(event) {
         user1.removeFromFavorites(recipe)
       }
     })
+    renderRecipeCards(user1.favoriteRecipes , favoritePage)
   }
-  renderRecipeCards(user1.favoriteRecipes , favoritePage)
 }
 
 function addToCookbook(event) {
