@@ -53,11 +53,12 @@ function eventDelegator(event) {
   favoriteRecipe(event)
   unfavoriteButton(event)
   addToCookbook(event)
+  console.log(event);
 }
 
-function renderRecipeCards(grub, htmlElement) {
+function renderRecipeCards(recipeData, htmlElement) {
   htmlElement.innerHTML = ""
-  const recipes = grub.map((recipe) => {
+  const recipes = recipeData.map((recipe) => {
     return new Recipe(recipe)
   })
   recipes.forEach((recipe) => {
@@ -77,7 +78,7 @@ function renderRecipeCards(grub, htmlElement) {
 
 function renderModalBox(event) {
   if (event.target.id === "viewRecipe") {
-    modalBox.classList.toggle('hidden')
+    modalBox.classList.remove('hidden')
     renderInstructions(event)
     renderIngredients(event)
   }
