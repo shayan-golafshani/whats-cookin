@@ -10,20 +10,18 @@
       <ul class="top-nav" id="topNav">
         <li id="recipes">Recipes</li>
         <li id="favorites">Favorites</li>
-        <li id="recipesToCook">Recipes to Cook</li>
+        <li id="recipesToCook">Cookbook</li>
         <input type="text" class="recipe-search-bar" id="nameSearchBar" placeholder="Search By Names...">
-        <button id='nameSearchBtn'>Names?!?</button>
+        <button id='nameSearchBtn'>Search</button>
         <input type="text" class="recipe-search-bar" id="ingredSearchBar" placeholder="Search By Ingreds...">
-        <button id='ingredSearchBtn'>Ingreds?!?</button>
+        <button id='ingredSearchBtn'>Search</button>
       </ul>
     </nav>
     <main id="mainElement">
       <!-- HERO IMAGE -->
       <article class="filter-article" id="filterArticle">
-        <!-- filter box for tags -->
-        <aside class="filter-aside" id="filterBox"> 
-          <!-- I want checked boxes with the tags so you can select as many as you want? -->
-          <h1>Tag Box</h1>
+        <aside class="filter-aside" id="filterBox">
+          <h1>Filter by Tag</h1>
           <input class="checkbox-values" type="checkbox" id="sideDish" name="tagbox" value="side dish">
           <label for="side-dish"> Side Dish</label><br>
           <input class="checkbox-values" type="checkbox" id="appetizer" name="tagbox" value="appetizer">
@@ -40,7 +38,7 @@
           <label for="salad"> Salad</label><br>
           <input class="checkbox-values" type="checkbox" id="condiment" name="tagbox" value="condiment">
           <label for="condiment"> Condiment</label><br>
-          <button id="filterButton">CLICK ME</button>
+          <button id="filterButton">Search</button>
         </aside>
       </article>
       <div id="modalBox" class="modal-container hidden">
@@ -49,31 +47,21 @@
           <div class="modal-instructions">
             <ul class="modal-instructions-list">Instructions
               <li id="modalInstructions">
-                <!-- instructions here -->
               </li>
             </ul>
           </div>
           <div class="modal-ingredients">
             <ul class="modal-ingredients-list">Ingredients
-                <li class="modal-ingredients-list" id="modalIngredients"> 
-                  <!-- ingredients here -->
+                <li class="modal-ingredients-list" id="modalIngredients">
                 </li>
             </ul>
           </div>
           <button class="close" id="close">Close</button>
         </span>
       </div>
-      <article id="recipeCards" class="recipe-cards">
-        <!-- RECIPE CARDS LIVE HERE AFTER PRINTED VIA DOM -->
-      </article>
-      <article id="favoritePage" class="recipe-cards hidden"> 
-        <!-- <article class="recipe-cards" id="favoriteArticle">
-        </article> -->
-      </article>
-      <article id="recipesToCookArticle" class="recipe-cards hidden"> 
-        <article class="recipe-cards" id="recipesToCookPage">
-        </article>
-      </article>
+      <article id="recipeCards" class="recipe-cards"></article>
+      <article id="favoritePage" class="recipe-cards hidden"></article>
+      <article id="recipesToCookArticle" class="recipe-cards hidden"></article>
     </main>
   </body>
 </html>

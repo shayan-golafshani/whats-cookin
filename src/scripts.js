@@ -18,7 +18,6 @@ const ingredSearchBox = document.getElementById('ingredSearchBar')
 const ingredSearchButton = document.getElementById('ingredSearchBtn')
 const navbar = document.getElementById('navbar')
 const favoritePage = document.getElementById('favoritePage')
-// const favoritePage = document.getElementById('favoritePage')
 const recipesToCookArticle = document.getElementById('recipesToCookArticle')
 
 //Global Variable
@@ -36,16 +35,11 @@ window.addEventListener('load', function() {
     .catch( err => console.log(err))
 })
 
-navbar.addEventListener('click', () => navbarDelegator(event))
+navbar.addEventListener('click', (event) => navbarDelegator(event))
 
-mainElement.addEventListener('click', function(event) {
-  eventDelegator(event)
-})
+mainElement.addEventListener('click', (event) => eventDelegator(event))
 
-tagBox.addEventListener('click', function(event) {
-  console.log('TAGBOX CLICKED');
-  evaluateCheckBoxes(event)
-})
+tagBox.addEventListener('click', (event) => evaluateCheckBoxes(event))
 
 //Event Handlers
 function navbarDelegator(event){
