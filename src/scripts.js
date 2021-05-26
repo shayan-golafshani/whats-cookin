@@ -6,7 +6,7 @@ import User from './classes/User'
 // import getAllData from apiCalls
 
 // Query Selectors
-const closeButton = document.getElementById('close')
+// const closeButton = document.getElementById('close')
 const recipeCards = document.getElementById('recipeCards')
 const checkedValue = document.querySelectorAll('.checkbox-values')
 const tagBox = document.getElementById('filterButton')
@@ -18,7 +18,7 @@ const ingredSearchBox = document.getElementById('ingredSearchBar')
 const ingredSearchButton = document.getElementById('ingredSearchBtn')
 const navbar = document.getElementById('navbar')
 const favoritePage = document.getElementById('favoritePage')
-const favoriteArticle = document.getElementById('favoriteArticle')
+// const favoritePage = document.getElementById('favoritePage')
 const recipesToCookArticle = document.getElementById('recipesToCookArticle')
 
 //Global Variable
@@ -45,10 +45,6 @@ mainElement.addEventListener('click', function(event) {
 tagBox.addEventListener('click', function(event) {
   console.log('TAGBOX CLICKED');
   evaluateCheckBoxes(event)
-})
-
-closeButton.addEventListener('click', function() {
-  modalBox.classList.remove('show')
 })
 
 //Event Handlers
@@ -92,6 +88,12 @@ function renderModalBox(event) {
     modalBox.classList.toggle('hidden')
     renderInstructions(event)
     renderIngredients(event)
+  }
+}
+
+function closeModalBox(event) {
+  if (event.target.id === 'close') {
+    modalBox.classList.add('hidden')
   }
 }
 
@@ -149,7 +151,7 @@ function renderIngredients(event) {
 
 nameSearchButton.addEventListener('click', () => {
   if(!favoritePage.classList.contains('hidden')){
-    renderRecipeCards(user1.filterFavoriteRecipesByName(nameSearchBox.value), favoriteArticle)
+    renderRecipeCards(user1.filterFavoriteRecipesByName(nameSearchBox.value), favoritePage)
   }
   if(!recipeCards.classList.contains('hidden')){
     nameSearch()
@@ -163,7 +165,7 @@ function nameSearch() {
 
 ingredSearchButton.addEventListener('click', () => {
   if(!favoritePage.classList.contains('hidden')){
-    renderRecipeCards(user1.filterFavoriteRecipesByIngreds(ingredSearchBox.value, allData[1].ingredientsData), favoriteArticle)
+    renderRecipeCards(user1.filterFavoriteRecipesByIngreds(ingredSearchBox.value, allData[1].ingredientsData), favoritePage)
   }
   if(!recipeCards.classList.contains('hidden')){
     ingredSearch()
@@ -173,12 +175,6 @@ ingredSearchButton.addEventListener('click', () => {
 function ingredSearch() {
   let recipeRepo1 = new RecipeRepository (allData[2].recipeData);
   renderRecipeCards(recipeRepo1.filterRecipeByIngredients(ingredSearchBox.value, allData[1].ingredientsData), recipeCards);
-}
-
-function closeModalBox(event) {
-  if (event.target.id === 'close') {
-    modalBox.classList.add('hidden')
-  }
 }
 
 function evaluateCheckBoxes(event) {
@@ -213,7 +209,7 @@ function unfavoriteButton(event) {
       }
     })
   }
-  renderRecipeCards(user1.favoriteRecipes , favoriteArticle)
+  renderRecipeCards(user1.favoriteRecipes , favoritePage)
 }
 
 function addToCookbook(event) {
@@ -229,8 +225,7 @@ function addToCookbook(event) {
 function renderRecipesToCookPage(event) {
   if(event.target.id === 'recipesToCook'){
     navigation(recipeCards, favoritePage, recipesToCookArticle)
-    renderRecipeCards(user1.recipesToCook , recipesToCookArticle)
-    
+    renderRecipeCards(user1.recipesToCook , recipesToCookArticle)   
   }
 }
 
@@ -238,7 +233,7 @@ function renderFavoritesPage(event) {
   if(event.target.id === 'favorites'){
     navigation(recipeCards, recipesToCookArticle, favoritePage)
     user1 = favoriteRecipe(event)
-    renderRecipeCards(user1.favoriteRecipes , favoriteArticle)
+    renderRecipeCards(user1.favoriteRecipes , favoritePage)
   }
 }
 
