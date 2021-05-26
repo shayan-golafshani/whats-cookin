@@ -155,7 +155,16 @@ function renderIngredients(event) {
   })
 }
 
-nameSearchButton.addEventListener('click', nameSearch);
+nameSearchButton.addEventListener('click', () => {
+  
+  if(!favoritePage.classList.contains('hidden')){
+    // renderRecipeCards(user1.filterFavoriteRecipesByIngreds(ingredSearchBox.value, allData[1].ingredientsData), favoriteArticle)
+    renderRecipeCards(user1.filterFavoriteRecipesByName(nameSearchBox.value), favoriteArticle)
+  }
+  if(!recipeCards.classList.contains('hidden')){
+    nameSearch()
+  }
+});
 
 function nameSearch() {
   let recipeRepo1 = new RecipeRepository (allData[2].recipeData);
