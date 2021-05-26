@@ -22,19 +22,21 @@ const ingredSearchButton = document.getElementById('ingredSearchBtn')
 const navbar = document.getElementById('navbar')
 const favoritePage = document.getElementById('favoritePage')
 const mainPage = document.getElementById('recipes')
+const favoriteArticle = document.getElementById('favoriteArticle')
 //Global Variable
 let allData = []
-
+let user1;
 //Event Listeners
 window.addEventListener('load', function() {
   getAllData()
     .then(response => allData = response)
     .then( () => {
       console.log('allData: ', allData)
+      user1 = new User(allData[0].usersData[0], allData[2].recipeData)
       // console.log('userdata: ', allData[0])
-      renderRecipeCards(allData[2].recipeData)
+      renderRecipeCards(allData[2].recipeData, recipeCards)
     })
-    .then(createUser)
+    // .then(createUser)
     .catch( err => console.log(err))
 })
 
@@ -76,13 +78,13 @@ function eventDelegator(event) {
   // renderRecipePage(event)
 }
 
-function renderRecipeCards(grub) {
-  recipeCards.innerHTML = ""
+function renderRecipeCards(grub, htmlElement) {
+  htmlElement.innerHTML = ""
   const recipes = grub.map((recipe) => {
     return new Recipe(recipe)
   })
   recipes.forEach((recipe) => {
-    recipeCards.innerHTML += `
+    htmlElement.innerHTML += `
       <div class="recipe-card" id="${recipe.id}">
         <img class="recipe-card-img" id="recipeCardImg" src="${recipe.image}">
         <p class="recipe-card-price" id="recipeCardPrice">$${recipe.getIngredCost(allData[1].ingredientsData)}</p>
@@ -159,14 +161,14 @@ nameSearchButton.addEventListener('click', nameSearch);
 
 function nameSearch() {
   let recipeRepo1 = new RecipeRepository (allData[2].recipeData);
-  renderRecipeCards(recipeRepo1.filterByName(nameSearchBox.value));
+  renderRecipeCards(recipeRepo1.filterByName(nameSearchBox.value), recipeCards);
 }
 
 ingredSearchButton.addEventListener('click', ingredSearch);
 
 function ingredSearch() {
   let recipeRepo1 = new RecipeRepository (allData[2].recipeData);
-  renderRecipeCards(recipeRepo1.filterRecipeByIngredients(ingredSearchBox.value, allData[1].ingredientsData));
+  renderRecipeCards(recipeRepo1.filterRecipeByIngredients(ingredSearchBox.value, allData[1].ingredientsData), recipeCards);
 }
 
 function closeModalBox(event) {
@@ -185,7 +187,7 @@ function evaluateCheckBoxes(event) {
     }
   })
   const filteredRecipes = cookbook.filterByTags(tags[0]);
-  renderRecipeCards(filteredRecipes)
+  renderRecipeCards(filteredRecipes, recipeCards)
 }
 
 
@@ -196,25 +198,25 @@ function evaluateCheckBoxes(event) {
 //take ID and match it up with allData[2] to extract recipe object
 //then pass recipe object into addFromFavorites(recipe) that will add recipe to favorited array
 
-function createUser() {
-  const user1 = new User(allData[0].usersData[0], allData[2].recipeData) 
-  return user1
-}
+// function createUser() {
+//   return user1
+// }
 
 function favoriteRecipe(event) {
-  const user1 = createUser()
+  // const user1 = createUser()
   const favoritedArray = []
   if(event.target.id === 'favoriteButton'){
     // console.log(event.path[1].id);
     allData[2].recipeData.forEach(recipe => {
       if(event.path[1].id == recipe.id){
-        console.log(recipe.id);
+        // console.log(recipe.id);
         user1.addFromFavorites(recipe)
         // console.log('line 201: ');
-        // console.log(favoritedArray)
+        // console.log('favoriterecipe array in favoriterecipe functoin: ', favoritedArray)
       }
     })
-    // console.log(user1.favoriteRecipes);
+    // console.log('user1.favoriteRecipes in favoriteRecipe(): ', user1.favoriteRecipes);
+    // console.log('user1 in favoriteRecipe(): ', user1);
   }
 
   return user1
@@ -222,24 +224,28 @@ function favoriteRecipe(event) {
 
 function renderFavoritesPage(event) {
   if(event.target.id === 'favorites'){
-    // console.log(event)
-    console.log('favorites button clicked');
-    // recipeCards.innerHTML = ""
     recipeCards.classList.add('hidden')
     favoritePage.classList.remove('hidden')
-    
+    user1 = favoriteRecipe(event)
+    renderRecipeCards(user1.favoriteRecipes ,favoriteArticle)
+    // user1.favoriteRecipes.forEach((recipe) => {
+    //   favoriteArticle.innerHTML +=  `
+    //     <div class="recipe-card" id="${recipe.id}">
+    //       <img class="recipe-card-img" id="recipeCardImg" src="${recipe.image}">
+    //       <p class="recipe-card-price" id="recipeCardPrice">$${recipe.getIngredCost(allData[1].ingredientsData)}</p>
+    //       <p class="recipe-card-name" id="recipeCardName">${recipe.name}</p>
+    //       <button id="viewRecipe">View Recipe</button>
+    //       <button id="favoriteButton">Favorite Recipe</button>
+    //     </div>
+    //   `
+    // })
   }
 }
 
 function renderRecipePage(event) {
   if(event.target.id === 'recipes'){
-    console.log('recipe nav button clicked');
     favoritePage.classList.add('hidden')
     recipeCards.classList.remove('hidden')
-    renderRecipeCards(allData[2].recipeData)
+    renderRecipeCards(allData[2].recipeData, recipeCards)
   }
 }
-
-// function toggleHidden(element) {
-//   [element].classList.toggle('hidden')
-// }
