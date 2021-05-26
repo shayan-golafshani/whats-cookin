@@ -2,6 +2,7 @@ import './styles.css';
 import getAllData from "../src/apiCalls";
 import Recipe from "../src/classes/Recipe"
 import RecipeRepository from './classes/RecipeRepository';
+import User from './classes/User'
 // import getAllData from apiCalls
 // import loader from 'sass-loader';
 // const recipe = require (`../src/data/recipes`);
@@ -9,72 +10,86 @@ import RecipeRepository from './classes/RecipeRepository';
 // Query Selectors
 // const viewRecipe = document.getElementById('viewRecipe')
 const closeButton = document.getElementById('close')
-let recipeCards = document.getElementById('recipeCards')
-let checkedValue = document.querySelectorAll('.checkbox-values')
-let tagBox = document.getElementById('filterButton')
+const recipeCards = document.getElementById('recipeCards')
+const checkedValue = document.querySelectorAll('.checkbox-values')
+const tagBox = document.getElementById('filterButton')
 const modalBox = document.getElementById('modalBox')
 const mainElement = document.getElementById('mainElement')
 const nameSearchBox = document.getElementById('nameSearchBar')
 const nameSearchButton = document.getElementById('nameSearchBtn')
 const ingredSearchBox = document.getElementById('ingredSearchBar')
 const ingredSearchButton = document.getElementById('ingredSearchBtn')
-// const recipeCardContainer = document.getElementById('recipeCards')
+const navbar = document.getElementById('navbar')
+const favoritePage = document.getElementById('favoritePage')
+// const favoritePageClass = document.g
+// const mainPage = document.getElementById('recipes') //<<<<<<<<<< not used yet either
+const favoriteArticle = document.getElementById('favoriteArticle')
+// const recipesToCookPage = document.getElementById('recipesToCookPage')
+// const recipesToCook = document.getElementById('recipesToCook')
+const recipesToCookArticle = document.getElementById('recipesToCookArticle')
 //Global Variable
 let allData = []
-
+let user1;
 //Event Listeners
 window.addEventListener('load', function() {
   getAllData()
     .then(response => allData = response)
     .then( () => {
       console.log('allData: ', allData)
-      renderRecipeCards(allData[2].recipeData)
+      user1 = new User(allData[0].usersData[0], allData[2].recipeData)
+      console.log(this)
+      renderRecipeCards(allData[2].recipeData, recipeCards)
     })
+    // .then(createUser)
     .catch( err => console.log(err))
 })
+
+navbar.addEventListener('click', () => navbarDelegator(event))
 
 mainElement.addEventListener('click', function(event) {
   eventDelegator(event)
 })
-
-// viewRecipe.addEventListener('click', function() {	
-//   modalBox.classList.add('show')	
-// })
 
 tagBox.addEventListener('click', function(event) {
   console.log('TAGBOX CLICKED');
   evaluateCheckBoxes(event)
 })
 
-// viewRecipe.addEventListener('click', function() {
-//   modalBox.classList.add('show')
-// })
-
 closeButton.addEventListener('click', function() {
   modalBox.classList.remove('show')
 })
 
 //Event Handlers
+function navbarDelegator(event){
+  renderFavoritesPage(event)
+  renderRecipePage(event)
+  renderRecipesToCookPage(event)
+}
+
 function eventDelegator(event) {
   renderModalBox(event)
   closeModalBox(event)
   renderInstructions(event)
+  favoriteRecipe(event)
+  unfavoriteButton(event)
+  addToCookbook(event)
 }
 
-
-
-function renderRecipeCards(grub) {
-  recipeCards.innerHTML = ""
+function renderRecipeCards(grub, htmlElement) {
+  htmlElement.innerHTML = ""
   const recipes = grub.map((recipe) => {
     return new Recipe(recipe)
   })
   recipes.forEach((recipe) => {
-    recipeCards.innerHTML += `
+    htmlElement.innerHTML += `
       <div class="recipe-card" id="${recipe.id}">
         <img class="recipe-card-img" id="recipeCardImg" src="${recipe.image}">
         <p class="recipe-card-price" id="recipeCardPrice">$${recipe.getIngredCost(allData[1].ingredientsData)}</p>
         <p class="recipe-card-name" id="recipeCardName">${recipe.name}</p>
         <button id="viewRecipe">View Recipe</button>
+        <button id="favoriteButton">Favorite Recipe</button>
+        <button id="unfavoriteButton">Unfavorite Recipe</button>
+        <button id="recipesToCook">Add to Cookbook</button>
       </div>
     `
   })
@@ -82,13 +97,11 @@ function renderRecipeCards(grub) {
 
 function renderModalBox(event) {
   if (event.target.id === "viewRecipe") {
-    // console.log('box: ', event.path[1].id)
     modalBox.classList.toggle('hidden')
     renderInstructions(event)
     renderIngredients(event)
   }
 }
-
 
 function renderInstructions(event) {
   const modalInstructions = document.getElementById('modalInstructions')
@@ -142,20 +155,37 @@ function renderIngredients(event) {
   })
 }
 
-nameSearchButton.addEventListener('click', nameSearch);
+nameSearchButton.addEventListener('click', () => {s
+  if(!favoritePage.classList.contains('hidden')){
+    // renderRecipeCards(user1.filterFavoriteRecipesByIngreds(ingredSearchBox.value, allData[1].ingredientsData), favoriteArticle)
+    renderRecipeCards(user1.filterFavoriteRecipesByName(nameSearchBox.value), favoriteArticle)
+  }
+  if(!recipeCards.classList.contains('hidden')){
+    nameSearch()
+  }
+});
 
 function nameSearch() {
   let recipeRepo1 = new RecipeRepository (allData[2].recipeData);
-  renderRecipeCards(recipeRepo1.filterByName(nameSearchBox.value));
+  renderRecipeCards(recipeRepo1.filterByName(nameSearchBox.value), recipeCards);
 }
 
-ingredSearchButton.addEventListener('click', ingredSearch);
+ingredSearchButton.addEventListener('click', () => {
+  if(!favoritePage.classList.contains('hidden')){
+    renderRecipeCards(user1.filterFavoriteRecipesByIngreds(ingredSearchBox.value, allData[1].ingredientsData), favoriteArticle)
+  }
+  if(!recipeCards.classList.contains('hidden')){
+    ingredSearch()
+  }
+  // if(!recipesToCookArticle.classList.includes(hidden)){
+  //   user1.
+  // }
+});
 
 function ingredSearch() {
   let recipeRepo1 = new RecipeRepository (allData[2].recipeData);
-  renderRecipeCards(recipeRepo1.filterRecipeByIngredients(ingredSearchBox.value, allData[1].ingredientsData));
+  renderRecipeCards(recipeRepo1.filterRecipeByIngredients(ingredSearchBox.value, allData[1].ingredientsData), recipeCards);
 }
-
 
 function closeModalBox(event) {
   if (event.target.id === 'close') {
@@ -173,5 +203,71 @@ function evaluateCheckBoxes(event) {
     }
   })
   const filteredRecipes = cookbook.filterByTags(tags[0]);
-  renderRecipeCards(filteredRecipes)
+  renderRecipeCards(filteredRecipes, recipeCards)
 }
+
+function favoriteRecipe(event) {
+  const favoritedArray = [] //<<<<NOT USED?
+  if(event.target.id === 'favoriteButton'){  
+    allData[2].recipeData.forEach(recipe => {
+      if(event.path[1].id == recipe.id){      
+        user1.addFromFavorites(recipe)
+      }
+    })
+  }
+  return user1
+}
+
+function unfavoriteButton(event) {
+  if(event.target.id === 'unfavoriteButton'){  
+    allData[2].recipeData.forEach(recipe => {
+      if(event.path[1].id == recipe.id){      
+        user1.removeFromFavorites(recipe)
+      }
+    })
+  }
+  renderRecipeCards(user1.favoriteRecipes , favoriteArticle)
+  // console.log(user1)
+}
+
+function addToCookbook(event) {
+  if(event.target.id === 'recipesToCook'){  
+    allData[2].recipeData.forEach(recipe => {
+      if(event.path[1].id == recipe.id){      
+        user1.addToRecipesToCook(recipe)
+      }
+    })
+  }
+  // return user1
+}
+
+function renderRecipesToCookPage(event) {
+  if(event.target.id === 'recipesToCook'){
+    recipeCards.classList.add('hidden')
+    favoritePage.classList.add('hidden')
+    recipesToCookArticle.classList.remove('hidden')
+    // user1 = user1.addToCookbook(event)
+    renderRecipeCards(user1.recipesToCook , recipesToCookArticle)
+    
+  }
+}
+
+function renderFavoritesPage(event) {
+  if(event.target.id === 'favorites'){
+    recipeCards.classList.add('hidden')
+    recipesToCookArticle.classList.add('hidden')
+    favoritePage.classList.remove('hidden')
+    user1 = favoriteRecipe(event)
+    renderRecipeCards(user1.favoriteRecipes , favoriteArticle)
+  }
+}
+
+function renderRecipePage(event) {
+  if(event.target.id === 'recipes'){
+    favoritePage.classList.add('hidden')
+    recipesToCookArticle.classList.add('hidden')
+    recipeCards.classList.remove('hidden')
+    renderRecipeCards(allData[2].recipeData, recipeCards)
+  }
+}
+

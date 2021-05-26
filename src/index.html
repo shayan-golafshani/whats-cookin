@@ -6,7 +6,7 @@
     <title>Whats Cookin</title>
   </head>
   <body>
-    <nav>
+    <nav id="navbar">
       <ul class="top-nav" id="topNav">
         <li id="recipes">Recipes</li>
         <li id="favorites">Favorites</li>
@@ -63,14 +63,17 @@
           <button class="close" id="close">Close</button>
         </span>
       </div>
-      <article class="recipe-cards" id="recipeCards">
+      <article id="recipeCards" class="recipe-cards">
         <!-- RECIPE CARDS LIVE HERE AFTER PRINTED VIA DOM -->
       </article>
-      <!-- <article class="favorite-page .hidden" id="favoritePage"> -->
-        <!-- <h1>BIG PUR</h1>
-      </article> -->
-      <!-- <article class="favorite-page .hidden" id="favoritePage"> -->
-      <!-- </article> -->
+      <article id="favoritePage" class="favorite-page hidden"> 
+        <article class="recipe-cards" id="favoriteArticle">
+        </article>
+      </article>
+      <article id="recipesToCookArticle" class="recipe-cards hidden"> 
+        <article class="recipe-cards" id="recipesToCookPage">
+        </article>
+      </article>
     </main>
   </body>
 </html>
