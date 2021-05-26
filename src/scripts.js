@@ -133,11 +133,6 @@ function renderIngredients(event) {
         </li>
       `
       }
-      modalIngredients.innerHTML += `
-        <li id="modalIngredients">
-        ${ingredAmount}
-        </li>
-      `
     }
   })
 }
