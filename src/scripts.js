@@ -4,11 +4,8 @@ import Recipe from "../src/classes/Recipe"
 import RecipeRepository from './classes/RecipeRepository';
 import User from './classes/User'
 // import getAllData from apiCalls
-// import loader from 'sass-loader';
-// const recipe = require (`../src/data/recipes`);
 
 // Query Selectors
-// const viewRecipe = document.getElementById('viewRecipe')
 const closeButton = document.getElementById('close')
 const recipeCards = document.getElementById('recipeCards')
 const checkedValue = document.querySelectorAll('.checkbox-values')
@@ -21,26 +18,21 @@ const ingredSearchBox = document.getElementById('ingredSearchBar')
 const ingredSearchButton = document.getElementById('ingredSearchBtn')
 const navbar = document.getElementById('navbar')
 const favoritePage = document.getElementById('favoritePage')
-// const favoritePageClass = document.g
-// const mainPage = document.getElementById('recipes') //<<<<<<<<<< not used yet either
 const favoriteArticle = document.getElementById('favoriteArticle')
-// const recipesToCookPage = document.getElementById('recipesToCookPage')
-// const recipesToCook = document.getElementById('recipesToCook')
 const recipesToCookArticle = document.getElementById('recipesToCookArticle')
+
 //Global Variable
 let allData = []
 let user1;
+
 //Event Listeners
 window.addEventListener('load', function() {
   getAllData()
     .then(response => allData = response)
     .then( () => {
-      console.log('allData: ', allData)
       user1 = new User(allData[0].usersData[0], allData[2].recipeData)
-      console.log(this)
       renderRecipeCards(allData[2].recipeData, recipeCards)
     })
-    // .then(createUser)
     .catch( err => console.log(err))
 })
 
@@ -155,9 +147,8 @@ function renderIngredients(event) {
   })
 }
 
-nameSearchButton.addEventListener('click', () => {s
+nameSearchButton.addEventListener('click', () => {
   if(!favoritePage.classList.contains('hidden')){
-    // renderRecipeCards(user1.filterFavoriteRecipesByIngreds(ingredSearchBox.value, allData[1].ingredientsData), favoriteArticle)
     renderRecipeCards(user1.filterFavoriteRecipesByName(nameSearchBox.value), favoriteArticle)
   }
   if(!recipeCards.classList.contains('hidden')){
@@ -177,9 +168,6 @@ ingredSearchButton.addEventListener('click', () => {
   if(!recipeCards.classList.contains('hidden')){
     ingredSearch()
   }
-  // if(!recipesToCookArticle.classList.includes(hidden)){
-  //   user1.
-  // }
 });
 
 function ingredSearch() {
@@ -207,7 +195,6 @@ function evaluateCheckBoxes(event) {
 }
 
 function favoriteRecipe(event) {
-  const favoritedArray = [] //<<<<NOT USED?
   if(event.target.id === 'favoriteButton'){  
     allData[2].recipeData.forEach(recipe => {
       if(event.path[1].id == recipe.id){      
@@ -227,7 +214,6 @@ function unfavoriteButton(event) {
     })
   }
   renderRecipeCards(user1.favoriteRecipes , favoriteArticle)
-  // console.log(user1)
 }
 
 function addToCookbook(event) {
@@ -238,15 +224,11 @@ function addToCookbook(event) {
       }
     })
   }
-  // return user1
 }
 
 function renderRecipesToCookPage(event) {
   if(event.target.id === 'recipesToCook'){
-    recipeCards.classList.add('hidden')
-    favoritePage.classList.add('hidden')
-    recipesToCookArticle.classList.remove('hidden')
-    // user1 = user1.addToCookbook(event)
+    navigation(recipeCards, favoritePage, recipesToCookArticle)
     renderRecipeCards(user1.recipesToCook , recipesToCookArticle)
     
   }
@@ -254,9 +236,7 @@ function renderRecipesToCookPage(event) {
 
 function renderFavoritesPage(event) {
   if(event.target.id === 'favorites'){
-    recipeCards.classList.add('hidden')
-    recipesToCookArticle.classList.add('hidden')
-    favoritePage.classList.remove('hidden')
+    navigation(recipeCards, recipesToCookArticle, favoritePage)
     user1 = favoriteRecipe(event)
     renderRecipeCards(user1.favoriteRecipes , favoriteArticle)
   }
@@ -264,10 +244,13 @@ function renderFavoritesPage(event) {
 
 function renderRecipePage(event) {
   if(event.target.id === 'recipes'){
-    favoritePage.classList.add('hidden')
-    recipesToCookArticle.classList.add('hidden')
-    recipeCards.classList.remove('hidden')
+    navigation(favoritePage, recipesToCookArticle, recipeCards)
     renderRecipeCards(allData[2].recipeData, recipeCards)
   }
 }
 
+function navigation(addHidden1, addHidden2, remHidden) {
+  addHidden1.classList.add('hidden');
+  addHidden2.classList.add('hidden');
+  remHidden.classList.remove('hidden')
+}
