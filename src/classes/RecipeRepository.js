@@ -17,15 +17,12 @@ class RecipeRepository {
   filterRecipeByIngredients(input, data) {  
     let userInput = input.toLowerCase();
     let matchingRecipes = [];
-    //if(!matchingreicpes.includes(recipe))
     data.forEach(datum => {
       this.recipes.forEach(recipe => { 
         recipe.ingredients.forEach(ingredient => {
           if (datum.id === ingredient.id  && datum.name.includes(userInput)
           && !matchingRecipes.includes(recipe)) {
-            // if(!matchingRecipes.includes(recipe)){
               matchingRecipes.push(recipe)
-            // };
           }
         });
       });
