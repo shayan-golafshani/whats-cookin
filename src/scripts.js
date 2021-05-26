@@ -74,6 +74,7 @@ function eventDelegator(event) {
   closeModalBox(event)
   renderInstructions(event)
   favoriteRecipe(event)
+  unfavoriteButton(event)
   // renderFavoritesPage(event)
   // renderRecipePage(event)
 }
@@ -91,6 +92,7 @@ function renderRecipeCards(grub, htmlElement) {
         <p class="recipe-card-name" id="recipeCardName">${recipe.name}</p>
         <button id="viewRecipe">View Recipe</button>
         <button id="favoriteButton">Favorite Recipe</button>
+        <button id="unfavoriteButton">Unfavorite Recipe</button>
       </div>
     `
   })
@@ -203,22 +205,14 @@ function evaluateCheckBoxes(event) {
 // }
 
 function favoriteRecipe(event) {
-  // const user1 = createUser()
   const favoritedArray = []
-  if(event.target.id === 'favoriteButton'){
-    // console.log(event.path[1].id);
+  if(event.target.id === 'favoriteButton'){  
     allData[2].recipeData.forEach(recipe => {
-      if(event.path[1].id == recipe.id){
-        // console.log(recipe.id);
+      if(event.path[1].id == recipe.id){      
         user1.addFromFavorites(recipe)
-        // console.log('line 201: ');
-        // console.log('favoriterecipe array in favoriterecipe functoin: ', favoritedArray)
       }
     })
-    // console.log('user1.favoriteRecipes in favoriteRecipe(): ', user1.favoriteRecipes);
-    // console.log('user1 in favoriteRecipe(): ', user1);
   }
-
   return user1
 }
 
@@ -228,17 +222,6 @@ function renderFavoritesPage(event) {
     favoritePage.classList.remove('hidden')
     user1 = favoriteRecipe(event)
     renderRecipeCards(user1.favoriteRecipes ,favoriteArticle)
-    // user1.favoriteRecipes.forEach((recipe) => {
-    //   favoriteArticle.innerHTML +=  `
-    //     <div class="recipe-card" id="${recipe.id}">
-    //       <img class="recipe-card-img" id="recipeCardImg" src="${recipe.image}">
-    //       <p class="recipe-card-price" id="recipeCardPrice">$${recipe.getIngredCost(allData[1].ingredientsData)}</p>
-    //       <p class="recipe-card-name" id="recipeCardName">${recipe.name}</p>
-    //       <button id="viewRecipe">View Recipe</button>
-    //       <button id="favoriteButton">Favorite Recipe</button>
-    //     </div>
-    //   `
-    // })
   }
 }
 
@@ -248,4 +231,16 @@ function renderRecipePage(event) {
     recipeCards.classList.remove('hidden')
     renderRecipeCards(allData[2].recipeData, recipeCards)
   }
+}
+
+function unfavoriteButton(event) {
+  if(event.target.id === 'unfavoriteButton'){  
+    allData[2].recipeData.forEach(recipe => {
+      if(event.path[1].id == recipe.id){      
+        user1.removeFromFavorites(recipe)
+      }
+    })
+  }
+  renderRecipeCards(user1.favoriteRecipes ,favoriteArticle)
+  console.log(user1)
 }
