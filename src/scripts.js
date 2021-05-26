@@ -3,11 +3,9 @@ import getAllData from "../src/apiCalls";
 import Recipe from "../src/classes/Recipe"
 import RecipeRepository from './classes/RecipeRepository';
 import User from './classes/User'
-// import getAllData from apiCalls
 
 // Query Selectors
-// const closeButton = document.getElementById('close')
-const recipeCards = document.getElementById('recipeCards')
+const mainPage = document.getElementById('mainPage')
 const checkedValue = document.querySelectorAll('.checkbox-values')
 const tagBox = document.getElementById('filterButton')
 const modalBox = document.getElementById('modalBox')
@@ -18,7 +16,7 @@ const ingredSearchBox = document.getElementById('ingredSearchBar')
 const ingredSearchButton = document.getElementById('ingredSearchBtn')
 const navbar = document.getElementById('navbar')
 const favoritePage = document.getElementById('favoritePage')
-const recipesToCookArticle = document.getElementById('recipesToCookArticle')
+const cookbookPage = document.getElementById('cookbookPage')
 
 //Global Variable
 let allData = []
@@ -30,7 +28,7 @@ window.addEventListener('load', function() {
     .then(response => allData = response)
     .then( () => {
       user1 = new User(allData[0].usersData[0], allData[2].recipeData)
-      renderRecipeCards(allData[2].recipeData, recipeCards)
+      renderRecipeCards(allData[2].recipeData, mainPage)
     })
     .catch( err => console.log(err))
 })
@@ -147,28 +145,28 @@ nameSearchButton.addEventListener('click', () => {
   if(!favoritePage.classList.contains('hidden')){
     renderRecipeCards(user1.filterFavoriteRecipesByName(nameSearchBox.value), favoritePage)
   }
-  if(!recipeCards.classList.contains('hidden')){
+  if(!mainPage.classList.contains('hidden')){
     nameSearch()
   }
 });
 
 function nameSearch() {
   let recipeRepo1 = new RecipeRepository (allData[2].recipeData);
-  renderRecipeCards(recipeRepo1.filterByName(nameSearchBox.value), recipeCards);
+  renderRecipeCards(recipeRepo1.filterByName(nameSearchBox.value), mainPage);
 }
 
 ingredSearchButton.addEventListener('click', () => {
   if(!favoritePage.classList.contains('hidden')){
     renderRecipeCards(user1.filterFavoriteRecipesByIngreds(ingredSearchBox.value, allData[1].ingredientsData), favoritePage)
   }
-  if(!recipeCards.classList.contains('hidden')){
+  if(!mainPage.classList.contains('hidden')){
     ingredSearch()
   }
 });
 
 function ingredSearch() {
   let recipeRepo1 = new RecipeRepository (allData[2].recipeData);
-  renderRecipeCards(recipeRepo1.filterRecipeByIngredients(ingredSearchBox.value, allData[1].ingredientsData), recipeCards);
+  renderRecipeCards(recipeRepo1.filterRecipeByIngredients(ingredSearchBox.value, allData[1].ingredientsData), mainPage);
 }
 
 function evaluateCheckBoxes(event) {
@@ -181,7 +179,7 @@ function evaluateCheckBoxes(event) {
     }
   })
   const filteredRecipes = cookbook.filterByTags(tags[0]);
-  renderRecipeCards(filteredRecipes, recipeCards)
+  renderRecipeCards(filteredRecipes, mainPage)
 }
 
 function favoriteRecipe(event) {
@@ -218,14 +216,14 @@ function addToCookbook(event) {
 
 function renderRecipesToCookPage(event) {
   if(event.target.id === 'recipesToCook'){
-    navigation(recipeCards, favoritePage, recipesToCookArticle)
-    renderRecipeCards(user1.recipesToCook , recipesToCookArticle)   
+    navigation(mainPage, favoritePage, cookbookPage)
+    renderRecipeCards(user1.recipesToCook , cookbookPage)   
   }
 }
 
 function renderFavoritesPage(event) {
   if(event.target.id === 'favorites'){
-    navigation(recipeCards, recipesToCookArticle, favoritePage)
+    navigation(mainPage, cookbookPage, favoritePage)
     user1 = favoriteRecipe(event)
     renderRecipeCards(user1.favoriteRecipes , favoritePage)
   }
@@ -233,8 +231,8 @@ function renderFavoritesPage(event) {
 
 function renderRecipePage(event) {
   if(event.target.id === 'recipes'){
-    navigation(favoritePage, recipesToCookArticle, recipeCards)
-    renderRecipeCards(allData[2].recipeData, recipeCards)
+    navigation(favoritePage, cookbookPage, mainPage)
+    renderRecipeCards(allData[2].recipeData, mainPage)
   }
 }
 
