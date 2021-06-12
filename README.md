@@ -93,14 +93,14 @@ In future iterations, additions to the game include:
  width="150" height="auto" style="float: left" />\
 **Steven Berg**
 
-[GitHub Profile](https://github.com/brabbuss)
+[GitHub Profile](https://github.com/saberg1)
 
 FrontEnd Engineering Mod 2 programming gang$ster at Turing School who has found no end to the joy that is beating up on the language of JavaScript.
 
 <img src="https://avatars.githubusercontent.com/u/70605985?v=4" alt="Coding Monkey"
  width="150" height="auto" style="float: left" />\
-**Demaceo Vincent Howard**
+**Shayan Golafshani**
 
-[GitHub Profile](https://github.com/demaceo)
+[GitHub Profile](https://github.com/shayan-golafshani)
 
 FrontEnd Engineering Mod 2 yakuza leader at Turing School, `+=` *^what steve said*.
